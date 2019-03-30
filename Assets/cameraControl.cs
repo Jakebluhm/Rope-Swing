@@ -15,6 +15,8 @@ public class cameraControl : MonoBehaviour
     */
     /*Todo: Add vertical scrolling?
      * 
+     * 
+     * 
     */
 
     public Camera Cam;
