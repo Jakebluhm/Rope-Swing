@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour
     public GameObject Camera;
     public GameObject Player;
     public bool Connected;
+    Vector3 StartingCameraPos;
 
     private float xOffset;
     private float yOffset;
@@ -45,6 +46,7 @@ public class GameController : MonoBehaviour
         Player = GameObject.FindWithTag("Player");
         Camera = GameObject.FindWithTag("MainCamera");
         Connected = false;
+        StartingCameraPos = Camera.transform.position;
     }
 
     //Returns index
@@ -127,14 +129,16 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if (Camera.transform.position.y > Player.transform.position.y + 100)
+        if (StartingCameraPos.y - 65 > Player.transform.position.y)
         {
             print("Fell OFF");
             //Destroy(Player);
 
-          //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Player.prefab", typeof(GameObject));
-          //  Player = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+            //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Player.prefab", typeof(GameObject));
+            //  Player = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
             // Modify the clone to your heart's content
+
+            //Camera.transform.position= StartingCameraPos;
             Player.transform.position = new Vector3(-25,127,-5);
             Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);     
 

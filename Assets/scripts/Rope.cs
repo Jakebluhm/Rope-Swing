@@ -51,7 +51,7 @@ public class Rope : MonoBehaviour
             Vector3 tempAng = (Player.transform.position - CorrectedHingePosition());
             temp = temp * 0.5f;
             float angle = Mathf.Atan2(tempAng.y, tempAng.x) * Mathf.Rad2Deg;
-            Debug.Log("angle:" + angle +"     Mag  " + temp.magnitude + "  //10");
+           
             
             VisualRope.transform.position = new Vector3(temp.x, temp.y, -5);
             VisualRope.transform.localScale = new Vector3(.25f, tempAng.magnitude/ 10f, .25f);
