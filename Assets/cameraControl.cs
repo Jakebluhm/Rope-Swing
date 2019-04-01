@@ -18,12 +18,9 @@ public class cameraControl : MonoBehaviour
      * 
     */
 
-    public float delayTime;
-    public Vector3 posA;
-    public Vector3 posB;
 
 
-  
+
 
 
     public Camera Cam;
@@ -33,6 +30,13 @@ public class cameraControl : MonoBehaviour
     private int camheight;
     private bool IsCoRutineRunning;
     private float bottomCamPos;
+    private float delayTime;
+
+    //Cam Vars 
+    public float dampTime = 0.25f;
+    private Vector3 velocity = Vector3.zero;
+    public Transform target;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,55 +44,65 @@ public class cameraControl : MonoBehaviour
         IsCoRutineRunning = false;
         startPos = Player.transform.position.x;
         Count100s = 0;
-        delayTime = 0.005f;
         bottomCamPos = Cam.transform.position.y;
+        delayTime = 0.000001f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float temp = 0f;
+
         float xpos = Player.transform.position.x;
         //Rect view = Cam.pixelRect;
 
 
-        Debug.Log("Flag:" + IsCoRutineRunning);
+         float temp = 0f;
+        target = Player.transform;
+        Vector3 point = Cam.WorldToViewportPoint(target.position);
+        Vector3 delta = target.position - Cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z)); //(new Vector3(0.5, 0.5, point.z));
+        Vector3 destination = transform.position + delta;
+        transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
 
 
-        if (!IsCoRutineRunning && Cam.transform.position.y + (camheight / 2) < Player.transform.position.y + 20)
-        {
+
+        /*if (IsCoRutineRunning)
+         Debug.Log("Flag:" + IsCoRutineRunning + "   Cam.transform.position.y+ (camheight / 2)" +
+                (Cam.transform.position.y + (camheight / 2)) + "   Player.transform.position.y + 20:   " + (Player.transform.position.y + 20));
+
+         if (!IsCoRutineRunning && Cam.transform.position.y + (camheight / 2) < Player.transform.position.y + 15)
+         {
 
 
-            Vector3 Vec = new Vector3(xpos + 50, Cam.transform.position.y + 20, Cam.transform.position.z);
+             Vector3 Vec = new Vector3(xpos + 50, Cam.transform.position.y + 60, Cam.transform.position.z);
 
-            if (!IsCoRutineRunning)
-            {
-                StartCoroutine(WaitAndMove(delayTime, Cam.transform.position, Vec));
-            }
-        }
-        else if (!IsCoRutineRunning && (Cam.transform.position.y - (camheight / 2) > Player.transform.position.y - 20) && Cam.transform.position.y  > bottomCamPos)
-        {
-            if (Cam.transform.position.y - 20 < bottomCamPos)
-            {
-                temp = bottomCamPos;
-            }
-            else
-            {
-                temp = Cam.transform.position.y - 20;
-            }
 
-            Vector3 Vec = new Vector3(xpos + 50, temp, Cam.transform.position.z);
+     StartCoroutine(WaitAndMove(delayTime, Cam.transform.position, Vec));
 
-            if (!IsCoRutineRunning)
-            {
-                StartCoroutine(WaitAndMove(delayTime, Cam.transform.position, Vec));
-            }
-        }
-       /* else if (!IsCoRutineRunning)
-        {
-            Cam.transform.position = new Vector3(xpos + 50, Cam.transform.position.y, Cam.transform.position.z);
-        }*/
+  }
+         else if (!IsCoRutineRunning && (Cam.transform.position.y - (camheight / 2) > Player.transform.position.y - 15) && Cam.transform.position.y  > bottomCamPos+2)
+         {
+             if (Cam.transform.position.y - 60 < bottomCamPos)
+             {
+                 temp = bottomCamPos;
+             }
+             else
+             {
+                 temp = Cam.transform.position.y - 60;
+             }
 
+             Vector3 Vec = new Vector3(xpos + 50, temp, Cam.transform.position.z);
+
+             if (!IsCoRutineRunning)
+             {
+                 StartCoroutine(WaitAndMove(delayTime, Cam.transform.position, Vec));
+             }
+         }
+        else if (!IsCoRutineRunning  &&    !(Cam.transform.position.y + (camheight / 2) < Player.transform.position.y + 15)
+           &&  !(Cam.transform.position.y - (camheight / 2) > Player.transform.position.y - 15))
+         {
+             Cam.transform.position = new Vector3(xpos + 50, Cam.transform.position.y, Cam.transform.position.z);
+         }
+         */
 
 
 
@@ -128,22 +142,21 @@ public class cameraControl : MonoBehaviour
 
 
 
-      
+
 
     }
-
     IEnumerator WaitAndMove(float delayTime, Vector3 from, Vector3 to)
     {
         IsCoRutineRunning = true;
 
-       
+
         yield return new WaitForSeconds(delayTime); // start at time X
-        
+
         float startTime = Time.time; // Time.time contains current frame time, so remember starting point
         while (Time.time - startTime <= .5)
         { // until one second passed
 
-          
+
             Cam.transform.position = cameraControl.Lerp(from, to, Time.time - startTime, Player.transform.position.x); // lerp from A to B in one second
             yield return 1; // wait for next frame
         }
@@ -169,4 +182,15 @@ public class cameraControl : MonoBehaviour
         );
 
     }
+
 }
+
+
+
+
+
+
+
+
+
+   
