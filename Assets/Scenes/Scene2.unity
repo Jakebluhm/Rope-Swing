@@ -142,9 +142,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hinges: []
+  Items: []
+  EnemyList: []
   isConnected: 0
   Camera: {fileID: 0}
   Player: {fileID: 0}
+  Connected: 0
 --- !u!4 &257572563
 Transform:
   m_ObjectHideFlags: 0
@@ -416,6 +419,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cam: {fileID: 1256754310}
   Player: {fileID: 512540828}
+  groundWidth: 294
+  cameraWidth: 228
+  cameraHelper: 0
+  boostSpawnChance: 3
 --- !u!81 &1256754309
 AudioListener:
   m_ObjectHideFlags: 0
@@ -500,7 +507,7 @@ PrefabInstance:
     - target: {fileID: 5910679308390006216, guid: b1c9568085e6e1c47b6fec50694aa0bd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 82.099045
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 5910679308390006216, guid: b1c9568085e6e1c47b6fec50694aa0bd,
         type: 3}

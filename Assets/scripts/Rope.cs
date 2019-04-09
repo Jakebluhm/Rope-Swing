@@ -28,6 +28,8 @@ public class Rope : MonoBehaviour
     private GameObject VisualRope;
     private float xOffset;
     private float yOffset;
+    private bool firstConnection;
+    private int kek;
 
     // Start is called before the first frame update
     void Start()
@@ -39,19 +41,22 @@ public class Rope : MonoBehaviour
         game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         isConnected = false;
         index = game.AddHinge(this);
-
+        firstConnection = true;
+        kek = 0;
     }//
     //
     // Update is called once per frame
     void Update()
     {
+
+
         if (mouseState == 1 &&  index == game.getConnected() && game.GetConnectedFlag())
         {
             Vector3 temp = (Player.transform.position + CorrectedHingePosition());
             Vector3 tempAng = (Player.transform.position - CorrectedHingePosition());
             temp = temp * 0.5f;
             float angle = Mathf.Atan2(tempAng.y, tempAng.x) * Mathf.Rad2Deg;
-            Debug.Log("angle:" + angle +"     Mag  " + temp.magnitude + "  //10");
+            //Debug.Log("angle:" + angle +"     Mag  " + temp.magnitude + "  //10");
             
             VisualRope.transform.position = new Vector3(temp.x, temp.y, -5);
             VisualRope.transform.localScale = new Vector3(.25f, tempAng.magnitude/ 10f, .25f);
@@ -68,17 +73,23 @@ public class Rope : MonoBehaviour
 
                 if (mouseState != 1)
                 {
-                    //Object ropePrefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/VisualRope.prefab", typeof(GameObject));
-                    VisualRope = Instantiate(Resources.Load("VisualRope", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+                //Debug.Log(firstConnection);
+                    if (firstConnection) 
+                    {
+                        firstConnection = false;
+                        game.incrementScore();
+                    }
+                //Object ropePrefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/VisualRope.prefab", typeof(GameObject));
+                VisualRope = Instantiate(Resources.Load("VisualRope", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
                     // Modify the clone to your heart's content
                     Vector3 temp = (Player.transform.position + CorrectedHingePosition()) * 0.5f;
                     VisualRope.transform.position = new Vector3(temp.x , temp.y, -5);
-                Debug.Log(temp);
+                //Debug.Log(temp);
 
 
                     game.setIsConnected(this);
                     currRope.connectedBody = Player.GetComponent<Rigidbody2D>();
-                    Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity + (10 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
+                    Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity + (12 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
                     currRope.distance = currRope.distance - 5;
 
                 }
@@ -115,5 +126,10 @@ public class Rope : MonoBehaviour
         lr.SetPosition(0, start);
         lr.SetPosition(1, end);
         GameObject.Destroy(myLine, .01f);
+    }
+
+    public void setFirstConnection(bool b)
+    {
+        this.firstConnection = b;
     }
 }

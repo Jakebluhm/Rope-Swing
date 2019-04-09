@@ -6,8 +6,18 @@ using UnityEngine.SceneManagement;
 public class LevelControl : MonoBehaviour
 {
     public int LvlIndex;
+    public int requestLvlChange;
     // Start is called before the first frame update
 
+    //private void Update()
+   // {
+        //Debug.Log("sugma");
+     //   if(requestLvlChange == 1)
+    //    {
+   //         SceneManager.LoadScene(2);
+   //         requestLvlChange = 0;
+   //     }
+   // }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,5 +25,12 @@ public class LevelControl : MonoBehaviour
         {
             SceneManager.LoadScene(LvlIndex);
         }
+    }
+
+    public void restart()
+    {
+        GameObject game = GameObject.FindWithTag("Game Controller");
+        Debug.Log("sugma");
+        SceneManager.LoadScene(0);
     }
 }

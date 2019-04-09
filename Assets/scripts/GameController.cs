@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 /*Todo: 
@@ -28,37 +31,149 @@ public class GameController : MonoBehaviour
 {
     public List<Rope> Hinges;
     public List<PickUpItem> Items;
+    public List<Enemies> EnemyList;
     public int isConnected;
     public GameObject Camera;
     public GameObject Player;
     public bool Connected;
+    public SceneSwitch sceneSwitcher;
 
     private float xOffset;
     private float yOffset;
+    public Text score;
+    public int scoreCount;
+    private bool fellOffFlag;
+
+    //public DB db = new DB();
+    
+
     // Start is called before the first frame update
     void Awake()
     {
+
         xOffset = 19.2f;
         yOffset = 67.9f;
+        sceneSwitcher = new SceneSwitch();
         Hinges = new List<Rope>();
         Items = new List<PickUpItem>();
+        EnemyList = new List<Enemies>();
         Player = GameObject.FindWithTag("Player");
         Camera = GameObject.FindWithTag("MainCamera");
         Connected = false;
+        scoreCount = 0;
+        fellOffFlag = false;
+        initScore();
+    }
+
+    void Update()
+    {
+        checkForEnter();
+        updateScore();
+        Debug.Log("fellOffFlag: " + fellOffFlag + ", first");
+        //garbageMan();
+        if (Camera.transform.position.y > Player.transform.position.y + 100)
+        {
+            print("Fell OFF");
+
+            //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Player.prefab", typeof(GameObject));
+            //  Player = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+            // Modify the clone to your heart's content
+            respawnPlayer();
+
+
+
+
+            // string PlayerLocation = "Assets/prefab/Player.prefab";
+            //ToDo Reinstanciate player.  Google how to instanciate prefabs. 
+            //The player can be foound in prefab folder in unity and already has starting position.
+        }
+    }
+
+    public void checkForEnter()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            if(sceneSwitcher.getSceneIndex() == 2)
+            {
+                sceneSwitcher.switchScenes(0);
+            }
+            
+        }
     }
 
     //Returns index
     public int AddHinge(Rope H)
     {
         Hinges.Add(H);
-
         return Hinges.Count - 1;
+    }
+
+    public void incrementScore()
+    {
+        scoreCount++;
+    }
+
+    public bool getfellOffFlag()
+    {
+        return fellOffFlag;
+    }
+
+    public void setfellOffFlag(bool flag)
+    {
+        fellOffFlag = flag;
+    }
+
+    public void initScore()
+    {
+        Font arial;
+        arial = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
+
+        // Create Canvas GameObject.
+        GameObject canvasGO = new GameObject();
+        canvasGO.name = "Canvas";
+        canvasGO.AddComponent<Canvas>();
+        canvasGO.AddComponent<CanvasScaler>();
+        canvasGO.AddComponent<GraphicRaycaster>();
+
+        // Get canvas from the GameObject.
+        Canvas canvas;
+        canvas = canvasGO.GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+
+        // Create the Text GameObject.
+        GameObject textGO = new GameObject();
+        textGO.transform.parent = canvasGO.transform;
+        textGO.AddComponent<Text>();
+
+        // Set Text component properties.
+        score = textGO.GetComponent<Text>();
+        score.font = arial;
+        score.fontSize = 24;
+        score.alignment = TextAnchor.MiddleCenter;
+        score.color = Color.black;
+
+        // Provide Text position and size using RectTransform.
+
+        score.transform.position = new Vector3(850, 520, -5);
+    }
+
+    public void updateScore()
+    {
+        score.text = "score: " + scoreCount;
+        //Debug.Log(score.text + scoreCount)
     }
 
     //Returns index
     public int AddItem(PickUpItem I)
     {
         Items.Add(I);
+
+        return Hinges.Count - 1;
+    }
+
+    public int AddEnemy(Enemies E)
+    {
+        EnemyList.Add(E);
 
         return Hinges.Count - 1;
     }
@@ -118,6 +233,7 @@ public class GameController : MonoBehaviour
 
         return ret;
     }
+
     Vector3 CorrectedHingePosition(int index)
     {
         return new Vector3(Hinges[index].Hinge.transform.position.x - xOffset, Hinges[index].Hinge.transform.position.y - yOffset,
@@ -125,22 +241,36 @@ public class GameController : MonoBehaviour
 
     }
 
-    void Update()
+
+
+    public void respawnPlayer()
     {
-        if (Camera.transform.position.y > Player.transform.position.y + 100)
+        //Player.transform.position = new Vector3(-25, 127, -5);
+        //Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        DB.Score = scoreCount;
+
+        scoreCount = 0;
+        //Destroy(Player);
+        fellOffFlag = true;
+        for(int i = 0; i < Hinges.Count; i++)
         {
-            print("Fell OFF");
-            //Destroy(Player);
-
-          //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Player.prefab", typeof(GameObject));
-          //  Player = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-            // Modify the clone to your heart's content
-            Player.transform.position = new Vector3(-25,127,-5);
-            Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);     
-
-            // string PlayerLocation = "Assets/prefab/Player.prefab";
-            //ToDo Reinstanciate player.  Google how to instanciate prefabs. 
-            //The player can be foound in prefab folder in unity and already has starting position.
+            Hinges[i].setFirstConnection(true);
         }
+        DB.LvlIndex = 2;
+        sceneSwitcher.switchScenes(2);
+        //SceneManager.LoadScene(2);
+    }
+
+    private void garbageMan()
+    {
+        if (EnemyList.Count > 10)
+        {
+            for (var i = 0; i < EnemyList.Count - 10; i++)
+            {
+                Destroy(EnemyList[i]);
+            }
+        }
+
     }
 }
+
