@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+<<<<<<< HEAD
 using System;
 using UnityEngine.UI;
+=======
+using UnityEngine.Experimental.UIElements;
+>>>>>>> master
 using UnityEngine.SceneManagement;
 
 
@@ -36,6 +40,7 @@ public class GameController : MonoBehaviour
     public GameObject Camera;
     public GameObject Player;
     public bool Connected;
+<<<<<<< HEAD
     public SceneSwitch sceneSwitcher;
 
     private float xOffset;
@@ -47,6 +52,14 @@ public class GameController : MonoBehaviour
     //public DB db = new DB();
     
 
+=======
+    Vector3 StartingCameraPos;
+
+    private float xOffset;
+    private float yOffset;
+
+    public bool JumpClick;
+>>>>>>> master
     // Start is called before the first frame update
     void Awake()
     {
@@ -60,6 +73,7 @@ public class GameController : MonoBehaviour
         Player = GameObject.FindWithTag("Player");
         Camera = GameObject.FindWithTag("MainCamera");
         Connected = false;
+<<<<<<< HEAD
         scoreCount = 0;
         fellOffFlag = false;
         initScore();
@@ -99,6 +113,21 @@ public class GameController : MonoBehaviour
             }
             
         }
+=======
+        StartingCameraPos = Camera.transform.position;
+        JumpClick = false;
+        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
+        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
+    }
+
+    public bool GetJumpClick()
+    {
+        return this.JumpClick;
+    }
+    public void SetJumpClick(bool b)
+    {
+        this.JumpClick = b;
+>>>>>>> master
     }
 
     //Returns index
@@ -245,6 +274,7 @@ public class GameController : MonoBehaviour
 
     public void respawnPlayer()
     {
+<<<<<<< HEAD
         //Player.transform.position = new Vector3(-25, 127, -5);
         //Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         DB.Score = scoreCount;
@@ -260,6 +290,40 @@ public class GameController : MonoBehaviour
         sceneSwitcher.switchScenes(2);
         //SceneManager.LoadScene(2);
     }
+=======
+        //Wait for first click
+        if(Input.GetMouseButtonDown(0))
+        {
+            if (!JumpClick)
+            {
+                this.JumpClick = true;
+                Player.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+                Player.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+            }
+           
+
+
+        }
+
+
+        if (StartingCameraPos.y - 65 > Player.transform.position.y)
+        {
+            this.JumpClick = false;
+            
+
+            Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
+            Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
+            print("Fell OFF");
+            //Destroy(Player);
+
+            //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Player.prefab", typeof(GameObject));
+            //  Player = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+            // Modify the clone to your heart's content
+
+            //Camera.transform.position= StartingCameraPos;
+            Player.transform.position = new Vector3(-25,127,-5);
+            Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);     
+>>>>>>> master
 
     private void garbageMan()
     {

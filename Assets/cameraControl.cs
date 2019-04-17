@@ -1,4 +1,5 @@
-﻿//using System.Collections;
+﻿using System.Collections;
+using System.Threading.Tasks;
 //using System.Collections.Generic;
 //using UnityEditor;
 using UnityEngine;
@@ -17,10 +18,16 @@ public class cameraControl : MonoBehaviour
      * 
     */
 
+
+
+
+
+
     public Camera Cam;
     public GameObject Player;
     static float startPos;
     private int Count100s;
+<<<<<<< HEAD
     private int Count50s;
     public int groundWidth = 294;
     public int cameraWidth = 228;
@@ -29,19 +36,86 @@ public class cameraControl : MonoBehaviour
     public int startup = 1;
     public int blockSpawnDistance = 150;
     
+=======
+    private int camheight;
+    private bool IsCoRutineRunning;
+    private float bottomCamPos;
+    private float delayTime;
+
+    //Cam Vars 
+    public float dampTime = 0.25f;
+    private Vector3 velocity = Vector3.zero;
+    public Transform target;
+
+>>>>>>> master
     // Start is called before the first frame update
     void Start()
     {
+        camheight = 133;
+        IsCoRutineRunning = false;
         startPos = Player.transform.position.x;
         Count100s = 0;
+        bottomCamPos = Cam.transform.position.y;
+        delayTime = 0.000001f;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         float xpos = Player.transform.position.x;
-        Vector3 Vec = new Vector3(xpos + 50, Cam.transform.position.y, Cam.transform.position.z);
-        Cam.transform.position = Vec;
+        //Rect view = Cam.pixelRect;
+
+
+         float temp = 0f;
+        target = Player.transform ;
+        Vector3 point = Cam.WorldToViewportPoint(target.position);
+        Vector3 delta = target.position - Cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z)); //(new Vector3(0.5, 0.5, point.z));
+        Vector3 destination = transform.position + delta;
+        transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
+
+
+
+        /*if (IsCoRutineRunning)
+         Debug.Log("Flag:" + IsCoRutineRunning + "   Cam.transform.position.y+ (camheight / 2)" +
+                (Cam.transform.position.y + (camheight / 2)) + "   Player.transform.position.y + 20:   " + (Player.transform.position.y + 20));
+
+         if (!IsCoRutineRunning && Cam.transform.position.y + (camheight / 2) < Player.transform.position.y + 15)
+         {
+
+
+             Vector3 Vec = new Vector3(xpos + 50, Cam.transform.position.y + 60, Cam.transform.position.z);
+
+
+     StartCoroutine(WaitAndMove(delayTime, Cam.transform.position, Vec));
+
+  }
+         else if (!IsCoRutineRunning && (Cam.transform.position.y - (camheight / 2) > Player.transform.position.y - 15) && Cam.transform.position.y  > bottomCamPos+2)
+         {
+             if (Cam.transform.position.y - 60 < bottomCamPos)
+             {
+                 temp = bottomCamPos;
+             }
+             else
+             {
+                 temp = Cam.transform.position.y - 60;
+             }
+
+             Vector3 Vec = new Vector3(xpos + 50, temp, Cam.transform.position.z);
+
+             if (!IsCoRutineRunning)
+             {
+                 StartCoroutine(WaitAndMove(delayTime, Cam.transform.position, Vec));
+             }
+         }
+        else if (!IsCoRutineRunning  &&    !(Cam.transform.position.y + (camheight / 2) < Player.transform.position.y + 15)
+           &&  !(Cam.transform.position.y - (camheight / 2) > Player.transform.position.y - 15))
+         {
+             Cam.transform.position = new Vector3(xpos + 50, Cam.transform.position.y, Cam.transform.position.z);
+         }
+         */
+
+
 
         if(startup == 1)
         {
@@ -76,7 +150,7 @@ public class cameraControl : MonoBehaviour
             {
                 //Count100s = 0;
                 //Object prefab1 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Sky_.prefab", typeof(GameObject));
-                GameObject sky = Instantiate(Resources.Load("Sky_",typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+                GameObject sky = Instantiate(Resources.Load("Sky_", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
                 // Modify the clone to your heart's content
                 sky.transform.position = new Vector3(startPos + 290, 82.1f, 0);
 
@@ -97,23 +171,75 @@ public class cameraControl : MonoBehaviour
             }
             if (Count100s == 1000)
             {
-               // Object prefab3 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Finish.prefab", typeof(GameObject));
+                // Object prefab3 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Finish.prefab", typeof(GameObject));
                 GameObject finishLine = Instantiate(Resources.Load("Finish", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
                 // Modify the clone to your heart's content
                 finishLine.transform.position = new Vector3(startPos + 300, 82.1f, 0);
-              
+
             }
 
+<<<<<<< HEAD
               //  Object pefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Block.prefab", typeof(GameObject));
+=======
+            //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Block.prefab", typeof(GameObject));
+>>>>>>> master
             GameObject block = Instantiate(Resources.Load("Block", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
             // Modify the clone to your heart's content
             block.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - 5, blockSpawnDistance + 5), Random.Range(192-5, 192+5) , -5);
 
-
-
-
-
         }
 
+
+
+
+
     }
+    IEnumerator WaitAndMove(float delayTime, Vector3 from, Vector3 to)
+    {
+        IsCoRutineRunning = true;
+
+
+        yield return new WaitForSeconds(delayTime); // start at time X
+
+        float startTime = Time.time; // Time.time contains current frame time, so remember starting point
+        while (Time.time - startTime <= .5)
+        { // until one second passed
+
+
+            Cam.transform.position = cameraControl.Lerp(from, to, Time.time - startTime, Player.transform.position.x); // lerp from A to B in one second
+            yield return 1; // wait for next frame
+        }
+        IsCoRutineRunning = false;
+    }
+
+    // Linearly interpolates between two vectors.
+
+    public static Vector3 Lerp(Vector3 a, Vector3 b, float t, float x)
+
+    {
+
+        t = Mathf.Clamp01(t);
+
+        return new Vector3(
+
+            x,
+
+            a.y + (b.y - a.y) * t,
+
+            a.z + (b.z - a.z) * t
+
+        );
+
+    }
+
 }
+
+
+
+
+
+
+
+
+
+   

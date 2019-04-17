@@ -56,7 +56,11 @@ public class Rope : MonoBehaviour
             Vector3 tempAng = (Player.transform.position - CorrectedHingePosition());
             temp = temp * 0.5f;
             float angle = Mathf.Atan2(tempAng.y, tempAng.x) * Mathf.Rad2Deg;
+<<<<<<< HEAD
             //Debug.Log("angle:" + angle +"     Mag  " + temp.magnitude + "  //10");
+=======
+           
+>>>>>>> master
             
             VisualRope.transform.position = new Vector3(temp.x, temp.y, -5);
             VisualRope.transform.localScale = new Vector3(.25f, tempAng.magnitude/ 10f, .25f);
@@ -68,7 +72,7 @@ public class Rope : MonoBehaviour
             //    Vector3 tempVec = Hinge.transform.position + (Vector3)Hinge.GetComponent<SpringJoint2D>().anchor;
             //     DrawLine(tempVec, Player.transform.position, new Color(250, 0, 0), false);
         }
-        if (Input.GetMouseButtonDown(0) && game.IsHingeClosest(index) && !game.GetConnectedFlag())
+        if (game.GetJumpClick() &&Input.GetMouseButtonDown(0) && game.IsHingeClosest(index) && !game.GetConnectedFlag())
         {
 
                 if (mouseState != 1)

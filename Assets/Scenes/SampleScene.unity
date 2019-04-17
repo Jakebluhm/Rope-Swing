@@ -153,6 +153,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cam: {fileID: 519420031}
   Player: {fileID: 1619830381}
+  dampTime: 0.25
+  target: {fileID: 0}
   groundWidth: 294
   cameraWidth: 228
   cameraHelper: 0
@@ -209,8 +211,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 70.5, y: 67.5, z: -10}
-  m_LocalScale: {x: 0.26125368, y: 0.035856303, z: 0.40980974}
+  m_LocalPosition: {x: 49.6, y: 66.9, z: -10}
+  m_LocalScale: {x: 0.2605457, y: 0.035759132, z: 0.40869915}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -348,7 +350,7 @@ PrefabInstance:
     - target: {fileID: 7589490020968397287, guid: 61d3c6933b62da549be2fd43683e5182,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 41.1
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 7589490020968397287, guid: 61d3c6933b62da549be2fd43683e5182,
         type: 3}
@@ -433,12 +435,12 @@ PrefabInstance:
     - target: {fileID: 1257557902389600629, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.5
+      value: -8.49
       objectReference: {fileID: 0}
     - target: {fileID: 1257557902389600629, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 125.9
+      value: 86.07
       objectReference: {fileID: 0}
     - target: {fileID: 1257557902389600629, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}
@@ -504,6 +506,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1257557902389600631, guid: d9be09434d786dc4a9de6407698c139d,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1257557901279373169, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}
