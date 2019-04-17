@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
+using UnityEngine.SceneManagement;
 
 
 /*Todo: 
@@ -36,6 +38,8 @@ public class GameController : MonoBehaviour
 
     private float xOffset;
     private float yOffset;
+
+    public bool JumpClick;
     // Start is called before the first frame update
     void Awake()
     {
@@ -47,6 +51,18 @@ public class GameController : MonoBehaviour
         Camera = GameObject.FindWithTag("MainCamera");
         Connected = false;
         StartingCameraPos = Camera.transform.position;
+        JumpClick = false;
+        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
+        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
+    }
+
+    public bool GetJumpClick()
+    {
+        return this.JumpClick;
+    }
+    public void SetJumpClick(bool b)
+    {
+        this.JumpClick = b;
     }
 
     //Returns index
@@ -129,8 +145,28 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        //Wait for first click
+        if(Input.GetMouseButtonDown(0))
+        {
+            if (!JumpClick)
+            {
+                this.JumpClick = true;
+                Player.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+                Player.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+            }
+           
+
+
+        }
+
+
         if (StartingCameraPos.y - 65 > Player.transform.position.y)
         {
+            this.JumpClick = false;
+            
+
+            Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
+            Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
             print("Fell OFF");
             //Destroy(Player);
 

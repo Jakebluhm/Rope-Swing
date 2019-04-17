@@ -151,11 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be6c8a1002900c4cab98cf2728f884a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 0
-  posA: {x: 0, y: 0, z: 0}
-  posB: {x: 0, y: 0, z: 0}
   Cam: {fileID: 519420031}
   Player: {fileID: 1619830381}
+  dampTime: 0.25
+  target: {fileID: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -427,6 +426,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1257557902389600631, guid: d9be09434d786dc4a9de6407698c139d,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1257557901279373169, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}

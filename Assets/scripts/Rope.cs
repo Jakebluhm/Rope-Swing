@@ -63,7 +63,7 @@ public class Rope : MonoBehaviour
             //    Vector3 tempVec = Hinge.transform.position + (Vector3)Hinge.GetComponent<SpringJoint2D>().anchor;
             //     DrawLine(tempVec, Player.transform.position, new Color(250, 0, 0), false);
         }
-        if (Input.GetMouseButtonDown(0) && game.IsHingeClosest(index) && !game.GetConnectedFlag())
+        if (game.GetJumpClick() &&Input.GetMouseButtonDown(0) && game.IsHingeClosest(index) && !game.GetConnectedFlag())
         {
 
                 if (mouseState != 1)
