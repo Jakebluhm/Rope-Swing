@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-<<<<<<< HEAD
+
 using System;
 using UnityEngine.UI;
-=======
+
 using UnityEngine.Experimental.UIElements;
->>>>>>> master
+
 using UnityEngine.SceneManagement;
 
 
@@ -40,7 +40,6 @@ public class GameController : MonoBehaviour
     public GameObject Camera;
     public GameObject Player;
     public bool Connected;
-<<<<<<< HEAD
     public SceneSwitch sceneSwitcher;
 
     private float xOffset;
@@ -48,21 +47,21 @@ public class GameController : MonoBehaviour
     public Text score;
     public int scoreCount;
     private bool fellOffFlag;
-
-    //public DB db = new DB();
     
+    //public DB db = new DB();
 
-=======
+
+
     Vector3 StartingCameraPos;
 
-    private float xOffset;
-    private float yOffset;
 
     public bool JumpClick;
->>>>>>> master
+
     // Start is called before the first frame update
     void Awake()
     {
+
+        DontDestroyOnLoad(transform.gameObject);
 
         xOffset = 19.2f;
         yOffset = 67.9f;
@@ -73,10 +72,14 @@ public class GameController : MonoBehaviour
         Player = GameObject.FindWithTag("Player");
         Camera = GameObject.FindWithTag("MainCamera");
         Connected = false;
-<<<<<<< HEAD
+        JumpClick = false;
         scoreCount = 0;
         fellOffFlag = false;
         initScore();
+
+
+        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
+        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
     }
 
     void Update()
@@ -101,6 +104,39 @@ public class GameController : MonoBehaviour
             //ToDo Reinstanciate player.  Google how to instanciate prefabs. 
             //The player can be foound in prefab folder in unity and already has starting position.
         }
+        
+         
+          //Wait for first click
+        if(Input.GetMouseButtonDown(0))
+        {
+            if (!JumpClick)
+            {
+                this.JumpClick = true;
+                Player.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+                Player.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+            }
+        }
+
+
+        if (StartingCameraPos.y - 65 > Player.transform.position.y)
+        {
+            this.JumpClick = false;
+
+            Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
+            Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
+            print("Fell OFF");
+            //Destroy(Player);
+
+            //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Player.prefab", typeof(GameObject));
+            //  Player = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+            // Modify the clone to your heart's content
+
+            //Camera.transform.position= StartingCameraPos;
+            Player.transform.position = new Vector3(-25, 127, -5);
+            Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        }
+
+          
     }
 
     public void checkForEnter()
@@ -113,11 +149,11 @@ public class GameController : MonoBehaviour
             }
             
         }
-=======
-        StartingCameraPos = Camera.transform.position;
+
+        /*StartingCameraPos = Camera.transform.position;
         JumpClick = false;
         Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
-        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
+        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;*/
     }
 
     public bool GetJumpClick()
@@ -127,7 +163,7 @@ public class GameController : MonoBehaviour
     public void SetJumpClick(bool b)
     {
         this.JumpClick = b;
->>>>>>> master
+
     }
 
     //Returns index
@@ -270,11 +306,11 @@ public class GameController : MonoBehaviour
 
     }
 
-
+    
 
     public void respawnPlayer()
     {
-<<<<<<< HEAD
+
         //Player.transform.position = new Vector3(-25, 127, -5);
         //Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         DB.Score = scoreCount;
@@ -290,40 +326,6 @@ public class GameController : MonoBehaviour
         sceneSwitcher.switchScenes(2);
         //SceneManager.LoadScene(2);
     }
-=======
-        //Wait for first click
-        if(Input.GetMouseButtonDown(0))
-        {
-            if (!JumpClick)
-            {
-                this.JumpClick = true;
-                Player.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionX;
-                Player.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
-            }
-           
-
-
-        }
-
-
-        if (StartingCameraPos.y - 65 > Player.transform.position.y)
-        {
-            this.JumpClick = false;
-            
-
-            Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
-            Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
-            print("Fell OFF");
-            //Destroy(Player);
-
-            //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Player.prefab", typeof(GameObject));
-            //  Player = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-            // Modify the clone to your heart's content
-
-            //Camera.transform.position= StartingCameraPos;
-            Player.transform.position = new Vector3(-25,127,-5);
-            Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);     
->>>>>>> master
 
     private void garbageMan()
     {
@@ -334,6 +336,13 @@ public class GameController : MonoBehaviour
                 Destroy(EnemyList[i]);
             }
         }
+
+    }
+
+    public void upgradeMenuActions()
+    {
+
+        GameObject sky = Instantiate(Resources.Load("Glider", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
 
     }
 }

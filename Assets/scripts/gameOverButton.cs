@@ -6,14 +6,14 @@ using UnityEngine.UI;
 
 public class gameOverButton : MonoBehaviour
 {
-    //GameObject game;
+    public GameController game;
     public Text score;
     // Start is called before the first frame update
     void Start()
     {
         if (SceneManager.GetActiveScene().buildIndex == 2)  //checks that the scene index is the game over screen
         {
-
+            game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
             //creates highscore text on screen
             Font arial;
             arial = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
@@ -59,6 +59,16 @@ public class gameOverButton : MonoBehaviour
     {
         DB.LvlIndex = 0;
         SceneManager.LoadScene(0);
+
+    }
+
+    public void upgrade()   //on game over scene, button press causes this method to run
+    {
+        DB.LvlIndex = 0;
+        game.upgradeMenuActions();
+        SceneManager.LoadScene(0);
+
+
     }
 
     public void mainMenuPlay()  //main menu play button causes this method to run

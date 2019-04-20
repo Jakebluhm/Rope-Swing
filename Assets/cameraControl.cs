@@ -27,7 +27,7 @@ public class cameraControl : MonoBehaviour
     public GameObject Player;
     static float startPos;
     private int Count100s;
-<<<<<<< HEAD
+
     private int Count50s;
     public int groundWidth = 294;
     public int cameraWidth = 228;
@@ -35,8 +35,7 @@ public class cameraControl : MonoBehaviour
     public int boostSpawnChance = 4;    // boostSpawnChance / 10 to spawn a boost every x distance
     public int startup = 1;
     public int blockSpawnDistance = 150;
-    
-=======
+
     private int camheight;
     private bool IsCoRutineRunning;
     private float bottomCamPos;
@@ -47,7 +46,7 @@ public class cameraControl : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     public Transform target;
 
->>>>>>> master
+
     // Start is called before the first frame update
     void Start()
     {
@@ -178,11 +177,11 @@ public class cameraControl : MonoBehaviour
 
             }
 
-<<<<<<< HEAD
+
               //  Object pefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Block.prefab", typeof(GameObject));
-=======
+
             //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Block.prefab", typeof(GameObject));
->>>>>>> master
+
             GameObject block = Instantiate(Resources.Load("Block", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
             // Modify the clone to your heart's content
             block.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - 5, blockSpawnDistance + 5), Random.Range(192-5, 192+5) , -5);

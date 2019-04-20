@@ -153,14 +153,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cam: {fileID: 519420031}
   Player: {fileID: 1619830381}
-  dampTime: 0.25
-  target: {fileID: 0}
   groundWidth: 294
   cameraWidth: 228
   cameraHelper: 0
   boostSpawnChance: 3
   startup: 1
   blockSpawnDistance: 200
+  dampTime: 0.25
+  target: {fileID: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -321,6 +321,7 @@ MonoBehaviour:
   Connected: 0
   score: {fileID: 0}
   scoreCount: 0
+  JumpClick: 0
 --- !u!4 &1423550119
 Transform:
   m_ObjectHideFlags: 0
