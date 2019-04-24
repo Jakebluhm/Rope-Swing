@@ -190,8 +190,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7589490020968397287}
   - component: {fileID: 5275372202736064371}
-  - component: {fileID: 714511294422178471}
   - component: {fileID: 8233299598414850408}
+  - component: {fileID: 5703555426126002082}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -236,26 +236,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!231 &714511294422178471
-SpringJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8720318955459114658}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: -19.240923, y: -67.79394}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 1
-  m_Distance: 62.47091
-  m_DampingRatio: 1
-  m_Frequency: 1
 --- !u!114 &8233299598414850408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +248,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e75620aeb23a34cae7b6a9c186f874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currRope: {fileID: 714511294422178471}
+  currRope: {fileID: 5703555426126002082}
   Player: {fileID: 0}
   Hinge: {fileID: 8720318955459114658}
   game: {fileID: 0}
+--- !u!233 &5703555426126002082
+HingeJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8720318955459114658}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: -18.48, y: -66.7}
+  m_ConnectedAnchor: {x: 6.152466, y: 63.331757}
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 360

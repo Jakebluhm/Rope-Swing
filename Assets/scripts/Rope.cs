@@ -18,7 +18,7 @@ using UnityEditor;
 */
 public class Rope : MonoBehaviour
 {
-    public SpringJoint2D currRope;
+    public HingeJoint2D currRope;
     public GameObject Player;
     public GameObject Hinge;
     private static int mouseState;
@@ -94,7 +94,7 @@ public class Rope : MonoBehaviour
                     game.setIsConnected(this);
                     currRope.connectedBody = Player.GetComponent<Rigidbody2D>();
                     Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity + (12 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
-                    currRope.distance = currRope.distance - 5;
+                    //currRope.distance = currRope.distance - 5;
 
                 }
                 mouseState = 1;

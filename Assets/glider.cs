@@ -28,10 +28,10 @@ public class glider : MonoBehaviour
     {
         bool firstPress = false;
         float tilt = 1f;
-        float drag = 0.5f;
+        float drag = 0.1f;
         if (Input.GetKey("a"))
         {
-            Player.GetComponent<Rigidbody2D>().drag = drag;
+            //Player.GetComponent<Rigidbody2D>().drag = drag;
             setOnPressVelocity(1);
             TiltUpPressed = true;
             Glider.transform.position = Player.transform.position + new Vector3(0, 5, 0);
@@ -44,7 +44,7 @@ public class glider : MonoBehaviour
         }
         else if (Input.GetKey("s"))
         {
-            Player.GetComponent<Rigidbody2D>().drag = drag;
+            //Player.GetComponent<Rigidbody2D>().drag = drag;
             setOnPressVelocity(2);
             GlidePressed = true;
             Glider.transform.position = Player.transform.position + new Vector3(0, 5, 0);
@@ -54,7 +54,7 @@ public class glider : MonoBehaviour
         }
         else if (Input.GetKey("d"))
         {
-            Player.GetComponent<Rigidbody2D>().drag = drag;
+            //Player.GetComponent<Rigidbody2D>().drag = drag;
             setOnPressVelocity(0);
             TiltDownPressed = true;
             Glider.transform.position = Player.transform.position + new Vector3(0, 5, 0);
@@ -68,7 +68,7 @@ public class glider : MonoBehaviour
         else
         {
 
-            Player.GetComponent<Rigidbody2D>().drag = 0f;
+            //Player.GetComponent<Rigidbody2D>().drag = 0f;
             GlidePressed = false;
             TiltDownPressed = false;
             TiltUpPressed = false;
@@ -78,23 +78,29 @@ public class glider : MonoBehaviour
     }
     void setNewPlayerVelocity()
     {
-        float Area = 1f;
+        float Area = 3f;
         float airDensity = 1.225f; //kg/m^3
         Vector2 newVelocity;
         float CurrVelo = onPressVelocity.magnitude;
         float yCompVelocity = onPressVelocity.y;
         float xCompVelocity = onPressVelocity.x;
-        float tiltInAngles = (Player.transform.eulerAngles.z - 185f) ; // 0 is vertically up  90 is horiz.  180 is vertically down
-        float tiltInRads = Mathf.Deg2Rad * tiltInAngles;
-        float velocityWeight;
+        float tiltInAngles = (Player.transform.eulerAngles.z - 185f); // 0 is vertically up  90 is horiz.  180 is vertically down
         tiltInAngles = tiltInAngles - 90f;
+        float tiltInRads =0.00174533f * tiltInAngles;
+        float velocityWeight;
         float liftCoefficent = 2 * Mathf.PI * tiltInRads;
+        float dragCoefficent = 1.28f * Mathf.Sin(tiltInRads);
         float Lift = liftCoefficent *
             ((CurrVelo * CurrVelo * airDensity) / 2) * Area;
+        float Drag = dragCoefficent * ((CurrVelo * CurrVelo * airDensity) / 2) *
+            Area;
         float VeritcalLift = Lift * Mathf.Cos(tiltInRads);
         float HorizontalLift = Lift * Mathf.Sin(tiltInRads);
-        Player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.01f*HorizontalLift
-            , 0.01f * VeritcalLift)); 
+        float VerticalDrag = Drag * Mathf.Sin(tiltInRads); 
+        float HorizontalDrag = Drag * Mathf.Cos(tiltInRads);
+        float weight = 9.8f * Player.GetComponent<Rigidbody2D>().mass;
+        Player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.03f*HorizontalLift - 0.05f * HorizontalDrag
+            , 0.03f * VeritcalLift + 0.05f * VerticalDrag)); 
        /* if (tiltInAngles > 90) //Tilted Up
         {
             //velocityWeight = 1 - (tiltInAngles / 180f);
