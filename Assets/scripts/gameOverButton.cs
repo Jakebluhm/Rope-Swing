@@ -65,7 +65,8 @@ public class gameOverButton : MonoBehaviour
     public void upgrade()   //on game over scene, button press causes this method to run
     {
         DB.LvlIndex = 0;
-        game.upgradeMenuActions();
+
+        Upgrades.Glider = 1;
         SceneManager.LoadScene(0);
 
 
@@ -75,7 +76,7 @@ public class gameOverButton : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
-
+    
     public void gameOverMainMenu()
     {
         SceneManager.LoadScene(3);

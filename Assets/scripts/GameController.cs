@@ -41,7 +41,6 @@ public class GameController : MonoBehaviour
     public GameObject Player;
     public bool Connected;
     public SceneSwitch sceneSwitcher;
-
     private float xOffset;
     private float yOffset;
     public Text score;
@@ -60,9 +59,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
-        DontDestroyOnLoad(transform.gameObject);
-
+        Upgrades.Glider = 0;
         xOffset = 19.2f;
         yOffset = 67.9f;
         sceneSwitcher = new SceneSwitch();
@@ -86,7 +83,7 @@ public class GameController : MonoBehaviour
     {
         checkForEnter();
         updateScore();
-        Debug.Log("fellOffFlag: " + fellOffFlag + ", first");
+       // Debug.Log("fellOffFlag: " + fellOffFlag + ", first");
         //garbageMan();
         if (Camera.transform.position.y > Player.transform.position.y + 100)
         {
@@ -338,7 +335,10 @@ public class GameController : MonoBehaviour
         }
 
     }
-
+    private void OnLevelWasLoaded(int level)
+    {
+        upgradeMenuActions();
+    }
     public void upgradeMenuActions()
     {
 
