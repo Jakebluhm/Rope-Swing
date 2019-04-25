@@ -18,7 +18,7 @@ using UnityEditor;
 */
 public class Rope : MonoBehaviour
 {
-    public HingeJoint2D currRope;
+    public RelativeJoint2D currRope;
     public GameObject Player;
     public GameObject Hinge;
     private static int mouseState;
@@ -43,6 +43,7 @@ public class Rope : MonoBehaviour
         index = game.AddHinge(this);
         firstConnection = true;
         kek = 0;
+        bool a = currRope.isActiveAndEnabled ;
     }//
     //
     // Update is called once per frame
@@ -93,6 +94,7 @@ public class Rope : MonoBehaviour
 
                     game.setIsConnected(this);
                     currRope.connectedBody = Player.GetComponent<Rigidbody2D>();
+               
                     Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity + (12 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
                     //currRope.distance = currRope.distance - 5;
 
