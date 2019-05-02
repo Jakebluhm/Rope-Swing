@@ -59,7 +59,6 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Upgrades.Glider = 0;
         xOffset = 19.2f;
         yOffset = 67.9f;
         sceneSwitcher = new SceneSwitch();

@@ -18,8 +18,8 @@ public class glider : MonoBehaviour
         Player = GameObject.FindWithTag("Player");
         //Player.transform.rotation = new Quaternion(0, 0, -90, 0);
         Glider.transform.position = Player.transform.position + new Vector3(0, 5, 0);
-        Player.transform.eulerAngles = new Vector3(0, 0, -70);
-
+        Player.transform.eulerAngles = new Vector3(0, 0, -80);
+        Glider.transform.eulerAngles = new Vector3(65, 0, 0);
         //Player.GetComponent<Rigidbody2D>().gravityScale = 0.7f;
     }
 
@@ -76,31 +76,57 @@ public class glider : MonoBehaviour
         }
 
     }
+    public bool GliderActive()
+    {
+        return GlidePressed | TiltDownPressed | TiltUpPressed;
+    }
     void setNewPlayerVelocity()
     {
-        float Area = 3f;
+        float Area = 0.065f;
         float airDensity = 1.225f; //kg/m^3
-        Vector2 newVelocity;
         float CurrVelo = onPressVelocity.magnitude;
         float yCompVelocity = onPressVelocity.y;
         float xCompVelocity = onPressVelocity.x;
-        float tiltInAngles = (Player.transform.eulerAngles.z - 185f); // 0 is vertically up  90 is horiz.  180 is vertically down
-        tiltInAngles = tiltInAngles - 90f;
-        float tiltInRads =0.00174533f * tiltInAngles;
-        float velocityWeight;
-        float liftCoefficent = 2 * Mathf.PI * tiltInRads;
+        float tiltInAngles = (Player.transform.eulerAngles.z - 275); // 0 is vertically up  90 is horiz.  180 is vertically down
+        //tiltInAngles = tiltInAngles - 90f;
+        float tiltInRads =0.0174533f * tiltInAngles;
+        float liftCoefficent;
+
+        if(tiltInAngles < 0)
+            liftCoefficent = 2 * Mathf.PI * (-1f*tiltInRads);
+        else
+            liftCoefficent = 2 * Mathf.PI * tiltInRads;
         float dragCoefficent = 1.28f * Mathf.Sin(tiltInRads);
-        float Lift = liftCoefficent *
-            ((CurrVelo * CurrVelo * airDensity) / 2) * Area;
-        float Drag = dragCoefficent * ((CurrVelo * CurrVelo * airDensity) / 2) *
-            Area;
+        float Lift = liftCoefficent * ((CurrVelo * CurrVelo * airDensity) / 2) * Area;
+        float Drag = dragCoefficent * ((CurrVelo * CurrVelo * airDensity) / 2) * Area;
+        float weight = 9.8f * Player.GetComponent<Rigidbody2D>().mass;
+        float stallSpeed = Mathf.Sqrt((2f * weight * 9.8f) / (airDensity * Area* (2 * Mathf.PI * 0.785398f)));
+
         float VeritcalLift = Lift * Mathf.Cos(tiltInRads);
         float HorizontalLift = Lift * Mathf.Sin(tiltInRads);
         float VerticalDrag = Drag * Mathf.Sin(tiltInRads); 
         float HorizontalDrag = Drag * Mathf.Cos(tiltInRads);
-        float weight = 9.8f * Player.GetComponent<Rigidbody2D>().mass;
-        Player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.03f*HorizontalLift - 0.05f * HorizontalDrag
-            , 0.03f * VeritcalLift + 0.05f * VerticalDrag)); 
+
+        /*if(VeritcalLift + VerticalDrag > weight)
+        {
+            VeritcalLift = (VeritcalLift + VerticalDrag) - weight;
+        }*/
+
+        if (Player.GetComponent<Rigidbody2D>().velocity.x > stallSpeed)
+        {
+            if (tiltInAngles < 0)
+            {
+                //layer.GetComponent<Rigidbody2D>().AddForce(new Vector2(HorizontalLift - HorizontalDrag
+                //, VeritcalLift + VerticalDrag));
+                Player.GetComponent<Rigidbody2D>().AddForce(new Vector2(HorizontalLift, VeritcalLift));
+                Player.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1f * HorizontalDrag, VerticalDrag));
+            }
+            else
+            {
+                Player.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1f*HorizontalLift - HorizontalDrag
+                , VeritcalLift - VerticalDrag));
+            }
+        }
        /* if (tiltInAngles > 90) //Tilted Up
         {
             //velocityWeight = 1 - (tiltInAngles / 180f);

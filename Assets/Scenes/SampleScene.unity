@@ -492,6 +492,36 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: 181
       objectReference: {fileID: 0}
+    - target: {fileID: 5271940460450223308, guid: 61d3c6933b62da549be2fd43683e5182,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271940460450223308, guid: 61d3c6933b62da549be2fd43683e5182,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 181
+      objectReference: {fileID: 0}
+    - target: {fileID: 3110123632779916644, guid: 61d3c6933b62da549be2fd43683e5182,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 22.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3110123632779916644, guid: 61d3c6933b62da549be2fd43683e5182,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 113.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 3227883513931624287, guid: 61d3c6933b62da549be2fd43683e5182,
+        type: 3}
+      propertyPath: m_Distance
+      value: 185.80904
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929023492930343147, guid: 61d3c6933b62da549be2fd43683e5182,
+        type: 3}
+      propertyPath: m_Distance
+      value: 115.70857
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61d3c6933b62da549be2fd43683e5182, type: 3}
 --- !u!1 &1619830381 stripped
@@ -575,7 +605,7 @@ PrefabInstance:
     - target: {fileID: 1257557902389600631, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1257557902389600631, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}

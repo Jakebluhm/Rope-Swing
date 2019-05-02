@@ -42,9 +42,22 @@ public class PickUpItem : MonoBehaviour
         {
             if(true) // Add else if's for different items
             {
-                Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity +
-                                                             (100 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
-
+                if (Upgrades.Glider == 1)
+                {
+                    float tiltInAngles = (Player.transform.eulerAngles.z - 275f);
+                    float tiltInRads = 0.0174533f * tiltInAngles;
+                    float cos = Mathf.Cos(tiltInRads);
+                    float sin = Mathf.Sin(tiltInRads);
+                    Vector2 vec = new Vector2(cos , sin );
+                    
+                    Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity + 
+                                                                 (100 * vec);
+                }
+                else
+                {
+                    Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity +
+                                                                 (100 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
+                }
                 
             }
             //else if()
