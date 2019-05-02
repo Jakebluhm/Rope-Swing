@@ -84,7 +84,7 @@ public class GameController : MonoBehaviour
         updateScore();
        // Debug.Log("fellOffFlag: " + fellOffFlag + ", first");
         //garbageMan();
-        if (Camera.transform.position.y > Player.transform.position.y + 100)
+        if (StartingCameraPos.y - 65 > Player.transform.position.y)
         {
             print("Fell OFF");
 
@@ -92,6 +92,7 @@ public class GameController : MonoBehaviour
             //  Player = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
             // Modify the clone to your heart's content
             respawnPlayer();
+
 
 
 
@@ -114,7 +115,7 @@ public class GameController : MonoBehaviour
         }
 
 
-        if (StartingCameraPos.y - 65 > Player.transform.position.y)
+       /* if (StartingCameraPos.y - 65 > Player.transform.position.y)
         {
             this.JumpClick = false;
 
@@ -130,7 +131,7 @@ public class GameController : MonoBehaviour
             //Camera.transform.position= StartingCameraPos;
             Player.transform.position = new Vector3(-25, 127, -5);
             Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        }
+        }*/
 
           
     }

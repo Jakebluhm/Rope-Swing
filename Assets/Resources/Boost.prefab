@@ -105,7 +105,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 1.4, y: 1.43}
   m_EdgeRadius: 0.5
 --- !u!114 &8737160671152590133
 MonoBehaviour:
@@ -122,3 +122,4 @@ MonoBehaviour:
   thisItem: {fileID: 8737160671152590130}
   game: {fileID: 0}
   Player: {fileID: 0}
+  cam: {fileID: 0}

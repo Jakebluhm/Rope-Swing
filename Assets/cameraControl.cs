@@ -128,7 +128,9 @@ public class cameraControl : MonoBehaviour
             // Modify the clone to your heart's content
             sky.transform.position = new Vector3(startPos + 290, 82.1f, 0);
 
-            GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+
+
+            //GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
 
             //Count100s = 0;
             //Object prefab2 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Ground.prefab", typeof(GameObject));
@@ -153,7 +155,10 @@ public class cameraControl : MonoBehaviour
                 // Modify the clone to your heart's content
                 sky.transform.position = new Vector3(startPos + 290, 82.1f, 0);
 
-                GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+                GameObject skyred = Instantiate(Resources.Load("Sky_Red", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+                // Modify the clone to your heart's content
+                skyred.transform.position = new Vector3(startPos + 290, 208.4f, 0);
+                // GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
 
                 //Count100s = 0;
                 //Object prefab2 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Ground.prefab", typeof(GameObject));

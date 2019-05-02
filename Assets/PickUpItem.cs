@@ -51,12 +51,12 @@ public class PickUpItem : MonoBehaviour
                     Vector2 vec = new Vector2(cos , sin );
                     
                     Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity + 
-                                                                 (100 * vec);
+                                                                 (200 * vec);
                 }
                 else
                 {
                     Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity +
-                                                                 (100 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
+                                                                 (200 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
                 }
                 
             }

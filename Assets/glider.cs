@@ -40,9 +40,9 @@ public class glider : MonoBehaviour
             Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, tilt);
 
 
-            setNewPlayerVelocity();
+            //setNewPlayerVelocity();
         }
-        else if (Input.GetKey("s"))
+        if (Input.GetKey("s"))
         {
             //Player.GetComponent<Rigidbody2D>().drag = drag;
             setOnPressVelocity(2);
@@ -52,7 +52,7 @@ public class glider : MonoBehaviour
 
             setNewPlayerVelocity();
         }
-        else if (Input.GetKey("d"))
+        if (Input.GetKey("d"))
         {
             //Player.GetComponent<Rigidbody2D>().drag = drag;
             setOnPressVelocity(0);
@@ -62,7 +62,7 @@ public class glider : MonoBehaviour
             Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, -1 * tilt);
             Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, -1 * tilt);
 
-            setNewPlayerVelocity();
+            //setNewPlayerVelocity();
 
         }
         else
@@ -83,7 +83,7 @@ public class glider : MonoBehaviour
     void setNewPlayerVelocity()
     {
         float Area = 0.065f;
-        float airDensity = 1.225f; //kg/m^3
+        float airDensity = 0.6f;//1.225f; //kg/m^3
         float CurrVelo = onPressVelocity.magnitude;
         float yCompVelocity = onPressVelocity.y;
         float xCompVelocity = onPressVelocity.x;
