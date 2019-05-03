@@ -34,7 +34,8 @@ public class cameraControl : MonoBehaviour
     public int cameraHelper = 0;
     public int boostSpawnChance = 4;    // boostSpawnChance / 10 to spawn a boost every x distance
     public int startup = 1;
-    public int blockSpawnDistance = 150;
+    public int blockSpawnDistance = 200;
+    public int blockVar = 15;
 
     private int camheight;
     private bool IsCoRutineRunning;
@@ -74,6 +75,10 @@ public class cameraControl : MonoBehaviour
         if (destination.y < 65)
         {
             destination = new Vector3(destination.x, 65, destination.z);
+        }
+        if (destination.x < 86.7f)
+        {
+            destination = new Vector3(86.7f, destination.y, destination.z);
         }
         transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
 
@@ -126,11 +131,11 @@ public class cameraControl : MonoBehaviour
             //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Block.prefab", typeof(GameObject));
             GameObject block = Instantiate(Resources.Load("Block", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
             // Modify the clone to your heart's content
-            block.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - 5, 170 + 5), Random.Range(187 - 5, 187 + 5), -5);
+            block.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - blockVar, blockSpawnDistance + blockVar), Random.Range(187 - 5, 187 + 5), -5);
 
             GameObject sky = Instantiate(Resources.Load("Sky_", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
             // Modify the clone to your heart's content
-            sky.transform.position = new Vector3(startPos + 290, 82.1f, 0);
+            sky.transform.position = new Vector3(startPos + 290, 108.9f, 0);
 
 
 
@@ -154,21 +159,21 @@ public class cameraControl : MonoBehaviour
             if ((Count100s % 2) == 0)
             {
                 GameObject block = Instantiate(Resources.Load("Block", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-                block.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - 5, blockSpawnDistance + 5), Random.Range(192 - 5, 192 + 5), -5);
+                block.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - blockVar, blockSpawnDistance + blockVar), Random.Range(192 - 5, 192 + 5), -5);
 
 
                 GameObject block2 = Instantiate(Resources.Load("Block", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-                block2.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - 5, blockSpawnDistance + 5), Random.Range(292 - 5, 292 + 5), -5);
+                block2.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - blockVar, blockSpawnDistance + blockVar), Random.Range(292 - 5, 292 + 5), -5);
 
                 //Count100s = 0;
                 //Object prefab1 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Sky_.prefab", typeof(GameObject));
                 GameObject sky = Instantiate(Resources.Load("Sky_", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
                 // Modify the clone to your heart's content
-                sky.transform.position = new Vector3(startPos + 290, 82.1f, 0);
+                sky.transform.position = new Vector3(startPos + 290, 108.9f, 0);
 
                 GameObject skyred = Instantiate(Resources.Load("Sky_Red", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
                 // Modify the clone to your heart's content
-                skyred.transform.position = new Vector3(startPos + 290, 208.4f, 0);
+                skyred.transform.position = new Vector3(startPos + 290, 258.4f, 0);
                 // GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
 
                 //Count100s = 0;

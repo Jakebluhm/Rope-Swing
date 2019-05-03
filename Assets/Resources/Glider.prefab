@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b28e480f84452449972da4c75d4ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvFile: {fileID: 0}
+  csvFile: {fileID: 4900000, guid: 5641e305bf5047e459e4be231fda121b, type: 3}
   rollNoInputField: {fileID: 0}
   nameInputField: {fileID: 0}
   contentArea: {fileID: 0}

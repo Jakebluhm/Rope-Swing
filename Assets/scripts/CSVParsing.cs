@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System.IO;
+using System.Collections.Generic;
 
 public class CSVParsing : MonoBehaviour
 {
@@ -15,30 +16,57 @@ public class CSVParsing : MonoBehaviour
 
     private char lineSeperater = '\n'; // It defines line seperate character
     private char fieldSeperator = ','; // It defines field seperate chracter
-
+    private List<List<float>> results;
     void Start()
     {
-        readData();
+        results = new List<List<float>>();
+        try
+        {
+            readData();
+        }
+        catch (System.Exception e)
+        {
+            // Something unexpected went wrong.
+            print(e);
+            // Maybe it is also necessary to terminate / restart the application.
+        }
+        print(results);
     }
     // Read data from CSV file
     private void readData()
     {
         string[] records = csvFile.text.Split(lineSeperater);
+        
         foreach (string record in records)
         {
+            
+            List<float> temp = new List<float>();
             string[] fields = record.Split(fieldSeperator);
-            foreach (string field in fields)
+            if(fields[0].Equals("229"))
             {
-                contentArea.text += field + "\t";
+                return;
             }
-            contentArea.text += '\n';
+            temp.Add(float.Parse(fields[1]));
+            temp.Add(float.Parse(fields[2]));
+            temp.Add(float.Parse(fields[3]));
+            temp.Add(float.Parse(fields[4]));
+
+            results.Add(temp);
         }
+    }
+    public float[] getLiftCoef(int index)
+    {
+        return new float[] { results[index][0], results[index][1]};
+    }
+    public float[] getDragCoef(int index)
+    {
+        return new float[] { results[index][2], results[index][3] };
     }
     // Add data to CSV file
     public void addData()
     {
         // Following line adds data to CSV file
-        File.AppendAllText(getPath() + "/Assets/StudentData.csv", lineSeperater + rollNoInputField.text + fieldSeperator + nameInputField.text);
+        File.AppendAllText(getPath() + "/Assets/CoefData.csv", lineSeperater + rollNoInputField.text + fieldSeperator + nameInputField.text);
         // Following lines refresh the edotor and print data
         rollNoInputField.text = "";
         nameInputField.text = "";

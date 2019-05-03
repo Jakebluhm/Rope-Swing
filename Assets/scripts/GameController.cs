@@ -341,9 +341,10 @@ public class GameController : MonoBehaviour
     }
     public void upgradeMenuActions()
     {
-
-        GameObject sky = Instantiate(Resources.Load("Glider", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-
+        if (Upgrades.Glider == 1)
+        {
+            GameObject sky = Instantiate(Resources.Load("Glider", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+        }
     }
 }
 

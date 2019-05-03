@@ -55,18 +55,18 @@ public class PickUpItem : MonoBehaviour
                         Vector2 vec = new Vector2(cos, sin);
 
                         Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity +
-                                                                     (200 * vec);
+                                                                     (120 * vec);
                     }
                     else
                     {
                         Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity +
-                                                                 (200 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
+                                                                 (120 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
                     }
                 }
                 else
                 {
                     Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity +
-                                                                 (200 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
+                                                                 (120 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
                 }
                 
             }
