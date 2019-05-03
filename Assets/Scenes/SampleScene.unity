@@ -159,6 +159,7 @@ MonoBehaviour:
   boostSpawnChance: 3
   startup: 1
   blockSpawnDistance: 200
+  blockVar: 15
   dampTime: 0.25
   target: {fileID: 0}
 --- !u!20 &519420031
@@ -232,12 +233,12 @@ PrefabInstance:
     - target: {fileID: 3140006999604510901, guid: 1ec2f540805c9c24e9ebc7b26e2cbdeb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 147.24408
+      value: 145.6
       objectReference: {fileID: 0}
     - target: {fileID: 3140006999604510901, guid: 1ec2f540805c9c24e9ebc7b26e2cbdeb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 208.9906
+      value: 255.8
       objectReference: {fileID: 0}
     - target: {fileID: 3140006999604510901, guid: 1ec2f540805c9c24e9ebc7b26e2cbdeb,
         type: 3}
@@ -614,12 +615,12 @@ PrefabInstance:
     - target: {fileID: 1257557902389600629, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.8
+      value: -16.1
       objectReference: {fileID: 0}
     - target: {fileID: 1257557902389600629, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 118.8
+      value: 171.8
       objectReference: {fileID: 0}
     - target: {fileID: 1257557902389600629, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}
@@ -817,7 +818,7 @@ PrefabInstance:
     - target: {fileID: 8513196464038360950, guid: a81bbbb629bb7824a83780e1830b742b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 82.099045
+      value: 105.2
       objectReference: {fileID: 0}
     - target: {fileID: 8513196464038360950, guid: a81bbbb629bb7824a83780e1830b742b,
         type: 3}
