@@ -674,7 +674,7 @@ PrefabInstance:
     - target: {fileID: 1257557902389600631, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}
       propertyPath: m_Mass
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1257557902389600631, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}

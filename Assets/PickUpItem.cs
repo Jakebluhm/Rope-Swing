@@ -42,16 +42,26 @@ public class PickUpItem : MonoBehaviour
         {
             if(true) // Add else if's for different items
             {
+
                 if (Upgrades.Glider == 1)
                 {
-                    float tiltInAngles = (Player.transform.eulerAngles.z - 275f);
-                    float tiltInRads = 0.0174533f * tiltInAngles;
-                    float cos = Mathf.Cos(tiltInRads);
-                    float sin = Mathf.Sin(tiltInRads);
-                    Vector2 vec = new Vector2(cos , sin );
-                    
-                    Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity + 
-                                                                 (200 * vec);
+                    glider tempGlider = GameObject.FindGameObjectWithTag("Glider").GetComponent<glider>();
+                    if (tempGlider.GliderActive())
+                    { 
+                        float tiltInAngles = (Player.transform.eulerAngles.z - 275f);
+                        float tiltInRads = 0.0174533f * tiltInAngles;
+                        float cos = Mathf.Cos(tiltInRads);
+                        float sin = Mathf.Sin(tiltInRads);
+                        Vector2 vec = new Vector2(cos, sin);
+
+                        Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity +
+                                                                     (200 * vec);
+                    }
+                    else
+                    {
+                        Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity +
+                                                                 (200 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
+                    }
                 }
                 else
                 {

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - UpgradeMenuBtn
+  - Glider
   layers:
   - Default
   - TransparentFX

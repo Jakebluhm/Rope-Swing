@@ -71,52 +71,56 @@ public class cameraControl : MonoBehaviour
         Vector3 point = Cam.WorldToViewportPoint(target.position);
         Vector3 delta = target.position - Cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z)); //(new Vector3(0.5, 0.5, point.z));
         Vector3 destination = transform.position + delta;
+        if (destination.y < 65)
+        {
+            destination = new Vector3(destination.x, 65, destination.z);
+        }
         transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
 
 
 
-        /*if (IsCoRutineRunning)
-         Debug.Log("Flag:" + IsCoRutineRunning + "   Cam.transform.position.y+ (camheight / 2)" +
-                (Cam.transform.position.y + (camheight / 2)) + "   Player.transform.position.y + 20:   " + (Player.transform.position.y + 20));
+            /*if (IsCoRutineRunning)
+             Debug.Log("Flag:" + IsCoRutineRunning + "   Cam.transform.position.y+ (camheight / 2)" +
+                    (Cam.transform.position.y + (camheight / 2)) + "   Player.transform.position.y + 20:   " + (Player.transform.position.y + 20));
 
-         if (!IsCoRutineRunning && Cam.transform.position.y + (camheight / 2) < Player.transform.position.y + 15)
-         {
-
-
-             Vector3 Vec = new Vector3(xpos + 50, Cam.transform.position.y + 60, Cam.transform.position.z);
-
-
-     StartCoroutine(WaitAndMove(delayTime, Cam.transform.position, Vec));
-
-  }
-         else if (!IsCoRutineRunning && (Cam.transform.position.y - (camheight / 2) > Player.transform.position.y - 15) && Cam.transform.position.y  > bottomCamPos+2)
-         {
-             if (Cam.transform.position.y - 60 < bottomCamPos)
+             if (!IsCoRutineRunning && Cam.transform.position.y + (camheight / 2) < Player.transform.position.y + 15)
              {
-                 temp = bottomCamPos;
-             }
-             else
+
+
+                 Vector3 Vec = new Vector3(xpos + 50, Cam.transform.position.y + 60, Cam.transform.position.z);
+
+
+         StartCoroutine(WaitAndMove(delayTime, Cam.transform.position, Vec));
+
+      }
+             else if (!IsCoRutineRunning && (Cam.transform.position.y - (camheight / 2) > Player.transform.position.y - 15) && Cam.transform.position.y  > bottomCamPos+2)
              {
-                 temp = Cam.transform.position.y - 60;
+                 if (Cam.transform.position.y - 60 < bottomCamPos)
+                 {
+                     temp = bottomCamPos;
+                 }
+                 else
+                 {
+                     temp = Cam.transform.position.y - 60;
+                 }
+
+                 Vector3 Vec = new Vector3(xpos + 50, temp, Cam.transform.position.z);
+
+                 if (!IsCoRutineRunning)
+                 {
+                     StartCoroutine(WaitAndMove(delayTime, Cam.transform.position, Vec));
+                 }
              }
-
-             Vector3 Vec = new Vector3(xpos + 50, temp, Cam.transform.position.z);
-
-             if (!IsCoRutineRunning)
+            else if (!IsCoRutineRunning  &&    !(Cam.transform.position.y + (camheight / 2) < Player.transform.position.y + 15)
+               &&  !(Cam.transform.position.y - (camheight / 2) > Player.transform.position.y - 15))
              {
-                 StartCoroutine(WaitAndMove(delayTime, Cam.transform.position, Vec));
+                 Cam.transform.position = new Vector3(xpos + 50, Cam.transform.position.y, Cam.transform.position.z);
              }
-         }
-        else if (!IsCoRutineRunning  &&    !(Cam.transform.position.y + (camheight / 2) < Player.transform.position.y + 15)
-           &&  !(Cam.transform.position.y - (camheight / 2) > Player.transform.position.y - 15))
-         {
-             Cam.transform.position = new Vector3(xpos + 50, Cam.transform.position.y, Cam.transform.position.z);
-         }
-         */
+             */
 
 
 
-        if(startup == 1)
+            if (startup == 1)
         {
             startup = 0;
             //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Block.prefab", typeof(GameObject));
@@ -149,6 +153,13 @@ public class cameraControl : MonoBehaviour
 
             if ((Count100s % 2) == 0)
             {
+                GameObject block = Instantiate(Resources.Load("Block", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+                block.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - 5, blockSpawnDistance + 5), Random.Range(192 - 5, 192 + 5), -5);
+
+
+                GameObject block2 = Instantiate(Resources.Load("Block", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+                block2.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - 5, blockSpawnDistance + 5), Random.Range(292 - 5, 292 + 5), -5);
+
                 //Count100s = 0;
                 //Object prefab1 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Sky_.prefab", typeof(GameObject));
                 GameObject sky = Instantiate(Resources.Load("Sky_", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
@@ -187,10 +198,7 @@ public class cameraControl : MonoBehaviour
 
             //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Block.prefab", typeof(GameObject));
 
-            GameObject block = Instantiate(Resources.Load("Block", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-            // Modify the clone to your heart's content
-            block.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - 5, blockSpawnDistance + 5), Random.Range(192-5, 192+5) , -5);
-
+          
         }
 
 
