@@ -43,7 +43,7 @@ public class PickUpItem : MonoBehaviour
             if(true) // Add else if's for different items
             {
                 Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity +
-                                                             (80 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
+                                                             (70 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
 
                 
             }

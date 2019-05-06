@@ -248,7 +248,10 @@ public class GameController : MonoBehaviour
         //Player.transform.position = new Vector3(-25, 127, -5);
         //Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         DB.Score = scoreCount;
-
+        if(scoreCount > DB.HighScore)
+        {
+            DB.HighScore = scoreCount;
+        }
         scoreCount = 0;
         //Destroy(Player);
         fellOffFlag = true;

@@ -8,6 +8,7 @@ public class gameOverButton : MonoBehaviour
 {
     //GameObject game;
     public Text score;
+    public Text highScore;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +36,10 @@ public class gameOverButton : MonoBehaviour
             textGO.transform.parent = canvasGO.transform;
             textGO.AddComponent<Text>();
 
+            GameObject textGO1 = new GameObject();
+            textGO1.transform.parent = canvasGO.transform;
+            textGO1.AddComponent<Text>();
+
             // Set Text component properties.
             score = textGO.GetComponent<Text>();
             score.font = arial;
@@ -43,8 +48,20 @@ public class gameOverButton : MonoBehaviour
             score.color = Color.black;
 
             // Provide Text position and size using RectTransform.
-            score.transform.position = new Vector3(450, 355, -5);
-            score.text = "score: " + DB.Score;
+            score.transform.position = new Vector3(460, 390, -5);
+            score.text = "Score: " + DB.Score;
+            
+            highScore = textGO1.GetComponent<Text>();
+            highScore.font = arial;
+            highScore.fontSize = 24;
+            highScore.alignment = TextAnchor.MiddleCenter;
+            highScore.color = Color.black;
+
+            // Provide Text position and size using RectTransform.
+            highScore.transform.position = new Vector3(460, 335, -5);
+            highScore.text = "High Score: " + DB.HighScore;
+            
+
         }
 
     }

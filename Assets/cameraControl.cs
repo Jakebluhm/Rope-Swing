@@ -28,6 +28,7 @@ public class cameraControl : MonoBehaviour
     public int boostSpawnChance = 4;    // boostSpawnChance / 10 to spawn a boost every x distance
     public int startup = 1;
     public int blockSpawnDistance = 150;
+    public int enemySpawnChance = 6;
     
     // Start is called before the first frame update
     void Start()
@@ -55,7 +56,11 @@ public class cameraControl : MonoBehaviour
             // Modify the clone to your heart's content
             sky.transform.position = new Vector3(startPos + 290, 82.1f, 0);
 
-            GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+            if(Random.Range(0,10) < enemySpawnChance)
+            {
+                //GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+            }
+
 
             //Count100s = 0;
             //Object prefab2 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Ground.prefab", typeof(GameObject));
@@ -80,7 +85,11 @@ public class cameraControl : MonoBehaviour
                 // Modify the clone to your heart's content
                 sky.transform.position = new Vector3(startPos + 290, 82.1f, 0);
 
-                GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+                if(Random.Range(0,10) < enemySpawnChance)//generates mace with enemySpawnChance/10 chance
+                {
+                    GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+                }
+
 
                 //Count100s = 0;
                 //Object prefab2 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Ground.prefab", typeof(GameObject));
