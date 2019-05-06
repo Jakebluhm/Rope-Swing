@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 8233299598414850408}
   - component: {fileID: 5028230865315328231}
   - component: {fileID: 7929023492930343147}
+  - component: {fileID: 1055459313305546541}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -227,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e75620aeb23a34cae7b6a9c186f874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currRope: {fileID: 7929023492930343147}
+  currRope: {fileID: 1055459313305546541}
   Player: {fileID: 0}
   Hinge: {fileID: 8720318955459114658}
   game: {fileID: 0}
@@ -251,7 +252,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 3
 --- !u!231 &7929023492930343147
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -272,3 +273,27 @@ SpringJoint2D:
   m_Distance: 62.70751
   m_DampingRatio: 1
   m_Frequency: 1
+--- !u!233 &1055459313305546541
+HingeJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8720318955459114658}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: -19.2, y: -67.56}
+  m_ConnectedAnchor: {x: 5.4324646, y: 62.471756}
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 359

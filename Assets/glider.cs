@@ -16,7 +16,7 @@ public class glider : MonoBehaviour
     void Start()
     {
         CoefData = GameObject.FindWithTag("Glider").GetComponent<CSVParsing>();
-        float startAngle = -120f;
+        float startAngle = -80f;
         Player = GameObject.FindWithTag("Player");
         //Player.transform.rotation = new Quaternion(0, 0, -90, 0);
         Glider.transform.position = Player.transform.position + new Vector3(0, 5, 0);
@@ -31,15 +31,18 @@ public class glider : MonoBehaviour
         bool firstPress = false;
         float tilt = 1f;
         float drag = 0.1f;
+        float tiltInAngles = (Player.transform.eulerAngles.z - 275);
         if (Input.GetKey("a"))
         {
             //Player.GetComponent<Rigidbody2D>().drag = drag;
             setOnPressVelocity(1);
             TiltUpPressed = true;
             Glider.transform.position = Player.transform.position + new Vector3(0, 5, 0);
-
-            Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, tilt);
-            Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, tilt);
+            if (tiltInAngles < 60)
+            {
+                Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, tilt);
+                Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, tilt);
+            }
 
 
             setNewPlayerVelocity();
@@ -60,10 +63,11 @@ public class glider : MonoBehaviour
             setOnPressVelocity(0);
             TiltDownPressed = true;
             Glider.transform.position = Player.transform.position + new Vector3(0, 5, 0);
-
-            Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, -1 * tilt);
-            Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, -1 * tilt);
-
+            if (tiltInAngles > -40)
+            {
+                Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, -1 * tilt);
+                Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, -1 * tilt);
+            }
             setNewPlayerVelocity();
 
         }
@@ -129,7 +133,7 @@ public class glider : MonoBehaviour
     void setNewPlayerVelocity()
     {
         float Area = 0.085f;
-        float airDensity = 0.798f;//1.225f; //kg/m^3
+        float airDensity = 0.76f;//1.225f; //kg/m^3
         float CurrVelo = onPressVelocity.magnitude ;
         float yCompVelocity = onPressVelocity.y;
         float xCompVelocity = onPressVelocity.x;
@@ -225,12 +229,12 @@ public class glider : MonoBehaviour
     }
     void setOnPressVelocity(int tilt) //tilt up - 1      tilt down - 0    glide - 2
     {
-        if(tilt == 2 && !GlidePressed)
+        /*if(tilt == 2 && !GlidePressed)
         {
             Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, tilt);
             Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, tilt);
 
-        }
+        }*/
         if (!TiltDownPressed && !TiltUpPressed && !GlidePressed)
         {
             onPressVelocity = Player.GetComponent<Rigidbody2D>().velocity;

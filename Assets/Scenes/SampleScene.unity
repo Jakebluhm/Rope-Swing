@@ -158,6 +158,7 @@ MonoBehaviour:
   cameraHelper: 0
   boostSpawnChance: 3
   startup: 1
+  enemySpawnChance: 6
   blockSpawnDistance: 200
   blockVar: 15
   dampTime: 0.25
@@ -188,7 +189,7 @@ Camera:
   far clip plane: 1000
   field of view: 165.3
   orthographic: 1
-  orthographic size: 67
+  orthographic size: 167
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -212,8 +213,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 49.6, y: 66.9, z: -10}
-  m_LocalScale: {x: 0.2605457, y: 0.035759132, z: 0.40869915}
+  m_LocalPosition: {x: 47.8, y: 67.4, z: -10}
+  m_LocalScale: {x: 0.3086685, y: 0.042363845, z: 0.4841859}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -669,7 +670,27 @@ PrefabInstance:
     - target: {fileID: 7929023492930343147, guid: 61d3c6933b62da549be2fd43683e5182,
         type: 3}
       propertyPath: m_Distance
-      value: 115.70857
+      value: 81.76859
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929023492930343147, guid: 61d3c6933b62da549be2fd43683e5182,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 78.116776
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929023492930343147, guid: 61d3c6933b62da549be2fd43683e5182,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 53.22242
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055459313305546541, guid: 61d3c6933b62da549be2fd43683e5182,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 22.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055459313305546541, guid: 61d3c6933b62da549be2fd43683e5182,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 113.44
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61d3c6933b62da549be2fd43683e5182, type: 3}
@@ -749,7 +770,7 @@ PrefabInstance:
     - target: {fileID: 1257557902389600628, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}
       propertyPath: m_UsedByComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1257557902389600631, guid: d9be09434d786dc4a9de6407698c139d,
         type: 3}

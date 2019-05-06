@@ -18,7 +18,7 @@ using UnityEditor;
 */
 public class Rope : MonoBehaviour
 {
-    public SpringJoint2D currRope;
+    public HingeJoint2D currRope;
     public GameObject Player;
     public GameObject Hinge;
     private static int mouseState;
@@ -85,7 +85,7 @@ public class Rope : MonoBehaviour
                         game.incrementScore();
                     }
                 //Object ropePrefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/VisualRope.prefab", typeof(GameObject));
-                VisualRope = Instantiate(Resources.Load("VisualRope", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+                    VisualRope = Instantiate(Resources.Load("VisualRope", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
                     // Modify the clone to your heart's content
                     Vector3 temp = (Player.transform.position + CorrectedHingePosition()) * 0.5f;
                     VisualRope.transform.position = new Vector3(temp.x , temp.y, -5);
@@ -93,12 +93,39 @@ public class Rope : MonoBehaviour
 
 
                     game.setIsConnected(this);
-                    currRope.connectedBody = Player.GetComponent<Rigidbody2D>();
-                  
-                    Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity + (12 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
-                    //currRope.distance = currRope.distance - 5;
+                Vector2 vel =  Player.GetComponent<Rigidbody2D>().velocity + (12 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
+                currRope.anchor = CorrectedHingePosition();
+                currRope.connectedBody = Player.GetComponent<Rigidbody2D>();
+                currRope.connectedAnchor = Player.transform.position;
+                currRope.autoConfigureConnectedAnchor=true;
+                Player.GetComponent<Rigidbody2D>().AddForce( new Vector2(50f,0f));
+                //currRope.distance = currRope.distance - 5;
+                /** On left Click **/
 
-                }
+                //move the anchor to the correct position
+                //anchor.transform.position = new Vector3(hit.point.x, hit.point.y, 0);
+                //zero out any rotation
+                //anchor.transform.rotation = Quaternion.identity;
+                /*
+                //Create HingeJoints
+                HingeJoint2D joint = gameObject.AddComponent<HingeJoint2D>();
+                joint.anchor = CorrectedHingePosition();
+                //joint.axis = Vector3.back; /// (0,0,-1)
+                //joint.anchor = Vector3.zero;
+                joint.connectedBody = Player.GetComponent<Rigidbody2D>();
+                HingeJoint2D anchorJoint = Hinge.AddComponent<HingeJoint2D>();
+                //anchorJoint.axis = Vector3.back; /// (0,0,-1)
+                anchorJoint.anchor = Vector3.zero;
+
+                //Now just add Force!
+
+                /** On left Click release **/
+
+                //Destroy HingeJoints
+                //Destroy(joint);
+                //Destroy(anchorJoint);
+                
+            }
                 mouseState = 1;
           //  }
         }
