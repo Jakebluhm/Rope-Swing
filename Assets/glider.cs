@@ -16,7 +16,7 @@ public class glider : MonoBehaviour
     void Start()
     {
         CoefData = GameObject.FindWithTag("Glider").GetComponent<CSVParsing>();
-        float startAngle = -120f;
+        float startAngle = -80f;
         Player = GameObject.FindWithTag("Player");
         //Player.transform.rotation = new Quaternion(0, 0, -90, 0);
         Glider.transform.position = Player.transform.position + new Vector3(0, 5, 0);

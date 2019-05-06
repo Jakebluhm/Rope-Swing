@@ -49,7 +49,7 @@ public class Rope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
 
         if (mouseState == 1 &&  index == game.getConnected() && game.GetConnectedFlag())
         {
@@ -82,7 +82,7 @@ public class Rope : MonoBehaviour
                     if (firstConnection) 
                     {
                         firstConnection = false;
-                        game.incrementScore();
+                        game.incrementConnections();
                     }
                 //Object ropePrefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/VisualRope.prefab", typeof(GameObject));
                 VisualRope = Instantiate(Resources.Load("VisualRope", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
