@@ -34,11 +34,11 @@ public class cameraControl : MonoBehaviour
     public int cameraHelper = 0;
     public int boostSpawnChance = 4;    // boostSpawnChance / 10 to spawn a boost every x distance
     public int startup = 1;
-<<<<<<< HEAD
-    public int blockSpawnDistance = 150;
+
+   // public int blockSpawnDistance = 150;
     public int enemySpawnChance = 6;
     
-=======
+
     public int blockSpawnDistance = 200;
     public int blockVar = 15;
 
@@ -53,7 +53,7 @@ public class cameraControl : MonoBehaviour
     public Transform target;
 
 
->>>>>>> origin/JakesBranchOfAndres
+
     // Start is called before the first frame update
     void Start()
     {
@@ -145,15 +145,14 @@ public class cameraControl : MonoBehaviour
 
 
 
-<<<<<<< HEAD
             if(Random.Range(0,10) < enemySpawnChance)
             {
                 //GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
             }
 
-=======
+
             //GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
->>>>>>> origin/JakesBranchOfAndres
+
 
             //Count100s = 0;
             //Object prefab2 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Ground.prefab", typeof(GameObject));
@@ -185,18 +184,17 @@ public class cameraControl : MonoBehaviour
                 // Modify the clone to your heart's content
                 sky.transform.position = new Vector3(startPos + 290, 108.9f, 0);
 
-<<<<<<< HEAD
+
                 if(Random.Range(0,10) < enemySpawnChance)//generates mace with enemySpawnChance/10 chance
                 {
                     GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
                 }
 
-=======
+
                 GameObject skyred = Instantiate(Resources.Load("Sky_Red", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
                 // Modify the clone to your heart's content
                 skyred.transform.position = new Vector3(startPos + 290, 258.4f, 0);
                 // GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
->>>>>>> origin/JakesBranchOfAndres
 
                 //Count100s = 0;
                 //Object prefab2 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Ground.prefab", typeof(GameObject));

@@ -42,11 +42,9 @@ public class PickUpItem : MonoBehaviour
         {
             if(true) // Add else if's for different items
             {
-<<<<<<< HEAD
+
                 Player.GetComponent<Rigidbody2D>().velocity = Player.GetComponent<Rigidbody2D>().velocity +
                                                              (70 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
-=======
->>>>>>> origin/JakesBranchOfAndres
 
                 if (Upgrades.Glider == 1)
                 {
