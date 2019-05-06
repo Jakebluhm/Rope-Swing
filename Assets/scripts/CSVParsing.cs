@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Collections.Generic;
 
+
 public class CSVParsing : MonoBehaviour
 {
     public TextAsset csvFile; // Reference of CSV file

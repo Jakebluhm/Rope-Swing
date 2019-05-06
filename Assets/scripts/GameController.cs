@@ -9,7 +9,10 @@ using UnityEngine.UI;
 using UnityEngine.Experimental.UIElements;
 
 using UnityEngine.SceneManagement;
+using System.IO;
 
+using System;
+using Microsoft.VisualBasic;
 
 /*Todo: 
 * 
@@ -46,7 +49,10 @@ public class GameController : MonoBehaviour
     public Text score;
     public int scoreCount;
     private bool fellOffFlag;
-    
+
+    string highScoreFilePath = "D:\\UNITY\\Source_tree_rope_swing\\Data\\HighScore.csv";
+
+
     //public DB db = new DB();
 
 
@@ -59,6 +65,17 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        //reading in highscore from csv file
+        var reader = new StreamReader(File.OpenRead(highScoreFilePath));
+        List<string> searchList = new List<String>();
+        while (!reader.EndOfStream)
+        {
+            Int32.TryParse(reader.ReadLine(), out var dummy);
+            DB.HighScore = dummy;
+            //var line = reader.ReadLine();
+            //searchList.Add(line);
+        }
+
         xOffset = 19.2f;
         yOffset = 67.9f;
         sceneSwitcher = new SceneSwitch();
@@ -313,7 +330,14 @@ public class GameController : MonoBehaviour
         DB.Score = scoreCount;
         if(scoreCount > DB.HighScore)
         {
+            //saves highscore to csv file
             DB.HighScore = scoreCount;
+            var csv = new System.Text.StringBuilder();
+            var highScoreString = DB.HighScore.ToString();
+            var newLine = string.Format(highScoreString);
+            csv.AppendLine(newLine);
+            File.WriteAllText(highScoreFilePath, csv.ToString());
+
         }
         scoreCount = 0;
         //Destroy(Player);
