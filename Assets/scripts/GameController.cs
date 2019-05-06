@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+
 using System;
 using UnityEngine.UI;
+
+using UnityEngine.Experimental.UIElements;
+
 using UnityEngine.SceneManagement;
 
 
@@ -37,20 +41,24 @@ public class GameController : MonoBehaviour
     public GameObject Player;
     public bool Connected;
     public SceneSwitch sceneSwitcher;
-
     private float xOffset;
     private float yOffset;
     public Text score;
     public int scoreCount;
     private bool fellOffFlag;
-
-    //public DB db = new DB();
     
+    //public DB db = new DB();
+
+
+
+    Vector3 StartingCameraPos;
+
+
+    public bool JumpClick;
 
     // Start is called before the first frame update
     void Awake()
     {
-
         xOffset = 19.2f;
         yOffset = 67.9f;
         sceneSwitcher = new SceneSwitch();
@@ -60,18 +68,23 @@ public class GameController : MonoBehaviour
         Player = GameObject.FindWithTag("Player");
         Camera = GameObject.FindWithTag("MainCamera");
         Connected = false;
+        JumpClick = false;
         scoreCount = 0;
         fellOffFlag = false;
         initScore();
+
+
+        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
+        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
     }
 
     void Update()
     {
         checkForEnter();
         updateScore();
-        Debug.Log("fellOffFlag: " + fellOffFlag + ", first");
+       // Debug.Log("fellOffFlag: " + fellOffFlag + ", first");
         //garbageMan();
-        if (Camera.transform.position.y > Player.transform.position.y + 100)
+        if (StartingCameraPos.y - 65 > Player.transform.position.y)
         {
             print("Fell OFF");
 
@@ -83,10 +96,44 @@ public class GameController : MonoBehaviour
 
 
 
+
             // string PlayerLocation = "Assets/prefab/Player.prefab";
             //ToDo Reinstanciate player.  Google how to instanciate prefabs. 
             //The player can be foound in prefab folder in unity and already has starting position.
         }
+        
+         
+          //Wait for first click
+        if(Input.GetMouseButtonDown(0))
+        {
+            if (!JumpClick)
+            {
+                this.JumpClick = true;
+                Player.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+                Player.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+            }
+        }
+
+
+       /* if (StartingCameraPos.y - 65 > Player.transform.position.y)
+        {
+            this.JumpClick = false;
+
+            Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
+            Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
+            print("Fell OFF");
+            //Destroy(Player);
+
+            //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Player.prefab", typeof(GameObject));
+            //  Player = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+            // Modify the clone to your heart's content
+
+            //Camera.transform.position= StartingCameraPos;
+            Player.transform.position = new Vector3(-25, 127, -5);
+            Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        }*/
+
+          
     }
 
     public void checkForEnter()
@@ -99,6 +146,21 @@ public class GameController : MonoBehaviour
             }
             
         }
+
+        /*StartingCameraPos = Camera.transform.position;
+        JumpClick = false;
+        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
+        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;*/
+    }
+
+    public bool GetJumpClick()
+    {
+        return this.JumpClick;
+    }
+    public void SetJumpClick(bool b)
+    {
+        this.JumpClick = b;
+
     }
 
     //Returns index
@@ -241,10 +303,11 @@ public class GameController : MonoBehaviour
 
     }
 
-
+    
 
     public void respawnPlayer()
     {
+
         //Player.transform.position = new Vector3(-25, 127, -5);
         //Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         DB.Score = scoreCount;
@@ -274,6 +337,17 @@ public class GameController : MonoBehaviour
             }
         }
 
+    }
+    private void OnLevelWasLoaded(int level)
+    {
+        upgradeMenuActions();
+    }
+    public void upgradeMenuActions()
+    {
+        if (Upgrades.Glider == 1)
+        {
+            GameObject sky = Instantiate(Resources.Load("Glider", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+        }
     }
 }
 

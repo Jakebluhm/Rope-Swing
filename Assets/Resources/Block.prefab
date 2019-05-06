@@ -189,9 +189,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7589490020968397287}
-  - component: {fileID: 5275372202736064371}
-  - component: {fileID: 714511294422178471}
   - component: {fileID: 8233299598414850408}
+  - component: {fileID: 5028230865315328231}
+  - component: {fileID: 7929023492930343147}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -215,7 +215,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &5275372202736064371
+--- !u!114 &8233299598414850408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8720318955459114658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e75620aeb23a34cae7b6a9c186f874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currRope: {fileID: 7929023492930343147}
+  Player: {fileID: 0}
+  Hinge: {fileID: 8720318955459114658}
+  game: {fileID: 0}
+--- !u!50 &5028230865315328231
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -236,7 +252,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!231 &714511294422178471
+--- !u!231 &7929023492930343147
 SpringJoint2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,25 +266,9 @@ SpringJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: -19.240923, y: -67.79394}
+  m_Anchor: {x: -19.2, y: -67.56}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 62.47091
+  m_Distance: 62.70751
   m_DampingRatio: 1
   m_Frequency: 1
---- !u!114 &8233299598414850408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8720318955459114658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7e75620aeb23a34cae7b6a9c186f874, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currRope: {fileID: 714511294422178471}
-  Player: {fileID: 0}
-  Hinge: {fileID: 8720318955459114658}
-  game: {fileID: 0}
