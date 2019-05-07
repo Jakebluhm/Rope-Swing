@@ -53,8 +53,8 @@ public class Rope : MonoBehaviour
 
         if (mouseState == 1 &&  index == game.getConnected() && game.GetConnectedFlag())
         {
-            Vector3 temp = (Player.transform.position + CorrectedHingePosition());
-            Vector3 tempAng = (Player.transform.position - CorrectedHingePosition());
+            Vector3 temp = (Player.transform.position + transform.position);
+            Vector3 tempAng = (Player.transform.position - transform.position);
             temp = temp * 0.5f;
             float angle = Mathf.Atan2(tempAng.y, tempAng.x) * Mathf.Rad2Deg;
 
@@ -94,11 +94,11 @@ public class Rope : MonoBehaviour
 
                     game.setIsConnected(this);
                 Vector2 vel =  Player.GetComponent<Rigidbody2D>().velocity + (12 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
-                currRope.anchor = CorrectedHingePosition();
+               // currRope.anchor = transform.position;
                 currRope.connectedBody = Player.GetComponent<Rigidbody2D>();
-                currRope.connectedAnchor = Player.transform.position;
-                currRope.autoConfigureConnectedAnchor=true;
-                Player.GetComponent<Rigidbody2D>().AddForce( new Vector2(50f,0f));
+                //currRope.connectedAnchor = Player.transform.position;
+                //currRope.autoConfigureConnectedAnchor=true;
+                //Player.GetComponent<Rigidbody2D>().AddForce( new Vector2(50f,0f));
                 //currRope.distance = currRope.distance - 5;
                 /** On left Click **/
 

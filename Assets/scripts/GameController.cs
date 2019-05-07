@@ -268,7 +268,7 @@ public class GameController : MonoBehaviour
         float distanceInQuestion;
         Vector2 NextVector;
         Vector2 PlayerVector = new Vector2(Player.transform.position.x, Player.transform.position.y);
-        Vector2 HingeVector = new Vector2(CorrectedHingePosition(index).x, CorrectedHingePosition(index).y);
+        Vector2 HingeVector = new Vector2(Hinges[index].transform.position.x, Hinges[index].transform.position.y);
 
         distanceInQuestion = Vector2.Distance(PlayerVector, HingeVector);
 
@@ -276,7 +276,7 @@ public class GameController : MonoBehaviour
         {
             if (x != index)
             {
-                NextVector = new Vector2(CorrectedHingePosition(x).x, CorrectedHingePosition(x).y);
+                NextVector = new Vector2(Hinges[x].transform.position.x, Hinges[x].transform.position.y);
 
                 currDistance = Vector2.Distance(PlayerVector, NextVector);
 

@@ -16,7 +16,7 @@ public class glider : MonoBehaviour
     void Start()
     {
         CoefData = GameObject.FindWithTag("Glider").GetComponent<CSVParsing>();
-        float startAngle = -80f;
+        float startAngle = -90f;
         Player = GameObject.FindWithTag("Player");
         //Player.transform.rotation = new Quaternion(0, 0, -90, 0);
         Glider.transform.position = Player.transform.position + new Vector3(0, 5, 0);
@@ -31,14 +31,16 @@ public class glider : MonoBehaviour
         bool firstPress = false;
         float tilt = 1f;
         float drag = 0.1f;
-        float tiltInAngles = (Player.transform.eulerAngles.z - 275);
+        float tiltInAngles = Glider.transform.eulerAngles.z;
+        Debug.Log(tiltInAngles);
         if (Input.GetKey("a"))
         {
             //Player.GetComponent<Rigidbody2D>().drag = drag;
             setOnPressVelocity(1);
             TiltUpPressed = true;
             Glider.transform.position = Player.transform.position + new Vector3(0, 5, 0);
-            if (tiltInAngles < 60)
+
+            if (tiltInAngles >= 319 && tiltInAngles <= 360 || tiltInAngles <= 60 && tiltInAngles >= 0 || tiltInAngles < 0 && tiltInAngles > -0.1f)
             {
                 Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, tilt);
                 Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, tilt);
@@ -59,11 +61,13 @@ public class glider : MonoBehaviour
         }
         else if (Input.GetKey("d"))
         {
+            
             //Player.GetComponent<Rigidbody2D>().drag = drag;
             setOnPressVelocity(0);
             TiltDownPressed = true;
             Glider.transform.position = Player.transform.position + new Vector3(0, 5, 0);
-            if (tiltInAngles > -40)
+
+            if ( tiltInAngles >= 320 && tiltInAngles <= 360 || tiltInAngles <= 61 && tiltInAngles >= 0 || tiltInAngles < 0 && tiltInAngles > -0.1f)
             {
                 Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, -1 * tilt);
                 Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, -1 * tilt);
@@ -132,13 +136,22 @@ public class glider : MonoBehaviour
     }
     void setNewPlayerVelocity()
     {
-        float Area = 0.085f;
-        float airDensity = 0.76f;//1.225f; //kg/m^3
+        float Area = 0.055f;
+        float airDensity = 1.225f;//1.225f; //kg/m^3
         float CurrVelo = onPressVelocity.magnitude ;
         float yCompVelocity = onPressVelocity.y;
         float xCompVelocity = onPressVelocity.x;
-        float tiltInAngles = (Player.transform.eulerAngles.z - 275); // 0 is vertically up  90 is horiz.  180 is vertically down
-        //tiltInAngles = tiltInAngles - 90f;
+        float tiltInAngles;
+        if(Glider.transform.eulerAngles.z > 0 && Glider.transform.eulerAngles.z < 60)
+        {
+
+            tiltInAngles = Glider.transform.eulerAngles.z;
+        }
+        else
+        {
+            tiltInAngles = Glider.transform.eulerAngles.z - 360;
+        }
+            //tiltInAngles = tiltInAngles - 90f;
         float tiltInRads =0.0174533f * tiltInAngles;
         float liftCoefficent;
 
@@ -160,13 +173,19 @@ public class glider : MonoBehaviour
 
         float balenceVertical = VeritcalLift + VerticalDrag - weight;
         float balenceHorizontal = HorizontalLift - HorizontalDrag;
+        float stallspeed = 50f;
+
+        if(balenceVertical < -100f)
+        {
+            print("nopp");
+        }
         /*if(VeritcalLift + VerticalDrag > weight)
         {
             VeritcalLift = (VeritcalLift + VerticalDrag) - weight;
         }*/
 
-        if (Player.GetComponent<Rigidbody2D>().velocity.x > stallSpeed)
-        {
+       if (Player.GetComponent<Rigidbody2D>().velocity.x > stallspeed)
+       {
             if (tiltInAngles < 0)
             {
                 //layer.GetComponent<Rigidbody2D>().AddForce(new Vector2(HorizontalLift - HorizontalDrag
@@ -184,6 +203,33 @@ public class glider : MonoBehaviour
 
                 balenceVertical = VeritcalLift - VerticalDrag - weight;
                 balenceHorizontal = -1f*HorizontalLift - HorizontalDrag;
+            }
+        }
+        else
+        {
+
+            HorizontalLift = HorizontalLift * (Player.GetComponent<Rigidbody2D>().velocity.x / stallspeed);
+            VeritcalLift = VeritcalLift * (Player.GetComponent<Rigidbody2D>().velocity.x / stallspeed);
+            HorizontalDrag = HorizontalDrag * (Player.GetComponent<Rigidbody2D>().velocity.x / stallspeed);
+            VerticalDrag = VerticalDrag * (Player.GetComponent<Rigidbody2D>().velocity.x / stallspeed);
+            if (tiltInAngles < 0)
+            {
+                //layer.GetComponent<Rigidbody2D>().AddForce(new Vector2(HorizontalLift - HorizontalDrag
+                //, VeritcalLift + VerticalDrag));
+
+                Player.GetComponent<Rigidbody2D>().AddForce(new Vector2(HorizontalLift, VeritcalLift));
+                Player.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1f * HorizontalDrag, VerticalDrag));
+
+                balenceVertical = VeritcalLift + VerticalDrag - weight;
+                balenceHorizontal = HorizontalLift - HorizontalDrag;
+            }
+            else
+            {
+                Player.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1f * HorizontalLift - HorizontalDrag
+                , VeritcalLift - VerticalDrag));
+
+                balenceVertical = VeritcalLift - VerticalDrag - weight;
+                balenceHorizontal = -1f * HorizontalLift - HorizontalDrag;
             }
         }
        /* else if (tiltInAngles < 0)
