@@ -35,7 +35,9 @@ public class cameraControl : MonoBehaviour
     public int boostSpawnChance = 4;    // boostSpawnChance / 10 to spawn a boost every x distance
     public int startup = 1;
 
-   // public int blockSpawnDistance = 150;
+    public GameController game;
+
+    // public int blockSpawnDistance = 150;
     public int enemySpawnChance = 6;
     
 
@@ -57,6 +59,7 @@ public class cameraControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         camheight = 133;
         IsCoRutineRunning = false;
         startPos = Player.transform.position.x;
@@ -70,10 +73,14 @@ public class cameraControl : MonoBehaviour
     {
 
         float xpos = Player.transform.position.x;
+        game.setDistance(xpos);
+        game.setHighestHeight(Player.transform.position.y);
+        game.setTopSpeed(Player.GetComponent<Rigidbody2D>().velocity);
+
         //Rect view = Cam.pixelRect;
 
 
-         float temp = 0f;
+        float temp = 0f;
         target = Player.transform ;
         Vector3 point = Cam.WorldToViewportPoint(target.position);
         Vector3 delta = target.position - Cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z)); //(new Vector3(0.5, 0.5, point.z));

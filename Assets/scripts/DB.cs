@@ -4,10 +4,11 @@ using UnityEngine;
 
 public static class DB
 {
-    private static int score, lvlIndex, highScore;
+    private static int lvlIndex;
+    private static float score, highScore;
 
 
-    public static int HighScore
+    public static float HighScore
     {
         get
         {
@@ -19,7 +20,7 @@ public static class DB
         }
     }
 
-    public static int Score
+    public static float Score
     {
         get
         {

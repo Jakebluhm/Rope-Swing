@@ -9,7 +9,10 @@ using UnityEngine.UI;
 using UnityEngine.Experimental.UIElements;
 
 using UnityEngine.SceneManagement;
+using System.IO;
 
+using System;
+using Microsoft.VisualBasic;
 
 /*Todo: 
 * 
@@ -44,9 +47,16 @@ public class GameController : MonoBehaviour
     private float xOffset;
     private float yOffset;
     public Text score;
-    public int scoreCount;
+    public float scoreCount;
+    public int connectionCount;
+    public float highestHeight;
+    public float topSpeed;
+    public float distance;
     private bool fellOffFlag;
-    
+
+    string highScoreFilePath = "D:\\UNITY\\Source_tree_rope_swing\\Data\\HighScore.csv";
+
+
     //public DB db = new DB();
 
 
@@ -59,6 +69,17 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        //reading in highscore from csv file
+        var reader = new StreamReader(File.OpenRead(highScoreFilePath));
+        List<string> searchList = new List<String>();
+        while (!reader.EndOfStream)
+        {
+            Int32.TryParse(reader.ReadLine(), out var dummy);
+            DB.HighScore = dummy;
+            //var line = reader.ReadLine();
+            //searchList.Add(line);
+        }
+
         xOffset = 19.2f;
         yOffset = 67.9f;
         sceneSwitcher = new SceneSwitch();
@@ -70,6 +91,11 @@ public class GameController : MonoBehaviour
         Connected = false;
         JumpClick = false;
         scoreCount = 0;
+        connectionCount = 0;
+        distance = 0;
+        highestHeight = 0;
+        topSpeed = 0;
+        
         fellOffFlag = false;
         initScore();
 
@@ -82,8 +108,9 @@ public class GameController : MonoBehaviour
     {
         checkForEnter();
         updateScore();
-       // Debug.Log("fellOffFlag: " + fellOffFlag + ", first");
+        // Debug.Log("fellOffFlag: " + fellOffFlag + ", first");
         //garbageMan();
+        scoreCount = calculateScore();
         if (StartingCameraPos.y - 65 > Player.transform.position.y)
         {
             print("Fell OFF");
@@ -170,12 +197,48 @@ public class GameController : MonoBehaviour
         return Hinges.Count - 1;
     }
 
-    public void incrementScore()
+    public void incrementScore()    //used to calculate score
     {
         scoreCount++;
     }
 
-    public bool getfellOffFlag()
+    public void incrementConnections()  //used to calculate score
+    {
+        connectionCount++;
+    }
+
+    public void setTopSpeed(Vector2 ts)   //used to calculate score
+    {
+        if(ts.magnitude > topSpeed)
+        {
+            topSpeed = ts.magnitude;
+        }
+        
+    }
+
+    public void setHighestHeight(float h)   //used to calculate score
+    {
+        if(h > highestHeight)
+        {
+            highestHeight = h;
+        }
+
+    }
+
+    public void setDistance(float d)
+    {
+        if(d > distance)
+        {
+            distance = d;
+        }
+    }
+
+    public float calculateScore()
+    {
+        return (float)connectionCount + topSpeed/10 + highestHeight + distance/100;
+    }
+
+    public bool getfellOffFlag()   
     {
         return fellOffFlag;
     }
@@ -310,10 +373,17 @@ public class GameController : MonoBehaviour
 
         //Player.transform.position = new Vector3(-25, 127, -5);
         //Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        DB.Score = scoreCount;
-        if(scoreCount > DB.HighScore)
+        DB.Score = calculateScore();
+        if(DB.Score > DB.HighScore)
         {
+            //saves highscore to csv file
             DB.HighScore = scoreCount;
+            var csv = new System.Text.StringBuilder();
+            var highScoreString = DB.HighScore.ToString();
+            var newLine = string.Format(highScoreString);
+            csv.AppendLine(newLine);
+            File.WriteAllText(highScoreFilePath, csv.ToString());
+
         }
         scoreCount = 0;
         //Destroy(Player);
