@@ -42,6 +42,8 @@ public class glider : MonoBehaviour
 
             if (tiltInAngles >= 319 && tiltInAngles <= 360 || tiltInAngles <= 60 && tiltInAngles >= 0 || tiltInAngles < 0 && tiltInAngles > -0.1f)
             {
+                //Todo: Make rotation smooth
+
                 Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, tilt);
                 Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, tilt);
             }

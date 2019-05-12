@@ -158,6 +158,7 @@ MonoBehaviour:
   cameraHelper: 0
   boostSpawnChance: 3
   startup: 1
+  game: {fileID: 0}
   enemySpawnChance: 6
   blockSpawnDistance: 200
   blockVar: 15
@@ -189,7 +190,7 @@ Camera:
   far clip plane: 1000
   field of view: 165.3
   orthographic: 1
-  orthographic size: 70
+  orthographic size: 100
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -392,6 +393,10 @@ MonoBehaviour:
   Connected: 0
   score: {fileID: 0}
   scoreCount: 0
+  connectionCount: 0
+  highestHeight: 0
+  topSpeed: 0
+  distance: 0
   JumpClick: 0
 --- !u!4 &1423550119
 Transform:

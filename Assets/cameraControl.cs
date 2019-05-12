@@ -10,13 +10,7 @@ public class cameraControl : MonoBehaviour
     /*Todo: 
     * 
     */
-
-    /*Todo: Backwards scrolling
-     * 
-    */
-    /*Todo: Add vertical scrolling?
-     * 
-    */
+    
 
 
 
@@ -164,7 +158,6 @@ public class cameraControl : MonoBehaviour
             //Count100s = 0;
             //Object prefab2 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Ground.prefab", typeof(GameObject));
             GameObject ground = Instantiate(Resources.Load("Ground", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-            // Modify the clone to your heart's content
             ground.transform.position = new Vector3(startPos + 295, 55.0f, 0);
         }
 
@@ -199,14 +192,12 @@ public class cameraControl : MonoBehaviour
 
 
                 GameObject skyred = Instantiate(Resources.Load("Sky_Red", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-                // Modify the clone to your heart's content
                 skyred.transform.position = new Vector3(startPos + 290, 258.4f, 0);
                 // GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
 
                 //Count100s = 0;
                 //Object prefab2 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Ground.prefab", typeof(GameObject));
                 GameObject ground = Instantiate(Resources.Load("Ground", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-                // Modify the clone to your heart's content
                 ground.transform.position = new Vector3(startPos + 295, 55.0f, 0);
 
                 if(Random.Range(0,10) > boostSpawnChance)
@@ -220,7 +211,6 @@ public class cameraControl : MonoBehaviour
             {
                 // Object prefab3 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Finish.prefab", typeof(GameObject));
                 GameObject finishLine = Instantiate(Resources.Load("Finish", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-                // Modify the clone to your heart's content
                 finishLine.transform.position = new Vector3(startPos + 300, 82.1f, 0);
 
             }

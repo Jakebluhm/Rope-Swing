@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        //reading in highscore from csv file
+       /* //reading in highscore from csv file
         var reader = new StreamReader(File.OpenRead(highScoreFilePath));
         List<string> searchList = new List<String>();
         while (!reader.EndOfStream)
@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour
             DB.HighScore = dummy;
             //var line = reader.ReadLine();
             //searchList.Add(line);
-        }
+        }*/
 
         xOffset = 19.2f;
         yOffset = 67.9f;
