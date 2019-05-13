@@ -48,6 +48,8 @@ public class cameraControl : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     public Transform target;
 
+    private float BackgroundStartPos;
+
 
 
     // Start is called before the first frame update
@@ -60,6 +62,7 @@ public class cameraControl : MonoBehaviour
         Count100s = 0;
         bottomCamPos = Cam.transform.position.y;
         delayTime = 0.000001f;
+        BackgroundStartPos = 277f;
     }
 
     // Update is called once per frame
@@ -79,13 +82,13 @@ public class cameraControl : MonoBehaviour
         Vector3 point = Cam.WorldToViewportPoint(target.position);
         Vector3 delta = target.position - Cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z)); //(new Vector3(0.5, 0.5, point.z));
         Vector3 destination = transform.position + delta;
-        if (destination.y < 65)
+        if (destination.y < 105f)
         {
-            destination = new Vector3(destination.x, 65, destination.z);
+            destination = new Vector3(destination.x, 105f, destination.z);
         }
-        if (destination.x < 86.7f)
+        if (destination.x < 107f)
         {
-            destination = new Vector3(86.7f, destination.y, destination.z);
+            destination = new Vector3(107f, destination.y, destination.z);
         }
         transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
 
@@ -136,13 +139,13 @@ public class cameraControl : MonoBehaviour
         {
             startup = 0;
             //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Block.prefab", typeof(GameObject));
-            GameObject block = Instantiate(Resources.Load("Block1", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+           // GameObject block = Instantiate(Resources.Load("Block1", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
             // Modify the clone to your heart's content
-            block.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - blockVar, blockSpawnDistance + blockVar), Random.Range(187 - 5, 187 + 5), -5);
+           // block.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - blockVar, blockSpawnDistance + blockVar), Random.Range(187 - 5, 187 + 5), -5);
 
-            GameObject sky = Instantiate(Resources.Load("Sky_", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+           //GameObject sky = Instantiate(Resources.Load("Sky_", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
             // Modify the clone to your heart's content
-            sky.transform.position = new Vector3(startPos + 290, 108.9f, 0);
+            //sky.transform.position = new Vector3(startPos + 290, 108.9f, 0);
 
 
 
@@ -157,8 +160,8 @@ public class cameraControl : MonoBehaviour
 
             //Count100s = 0;
             //Object prefab2 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Ground.prefab", typeof(GameObject));
-            GameObject ground = Instantiate(Resources.Load("Ground", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-            ground.transform.position = new Vector3(startPos + 295, 55.0f, 0);
+           // GameObject ground = Instantiate(Resources.Load("Ground", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+           // ground.transform.position = new Vector3(startPos + 295, 55.0f, 0);
         }
 
 
@@ -174,31 +177,36 @@ public class cameraControl : MonoBehaviour
                 GameObject block = Instantiate(Resources.Load("Block1", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
                 block.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - blockVar, blockSpawnDistance + blockVar), Random.Range(192 - 5, 192 + 5), -5);
 
-
+            if ((Count100s % 3) == 0)
+            {
                 GameObject block2 = Instantiate(Resources.Load("Block1", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-                block2.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - blockVar, blockSpawnDistance + blockVar), Random.Range(292 - 5, 292 + 5), -5);
+                block2.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - blockVar, blockSpawnDistance + blockVar), Random.Range(450 - 60, 292 + 10), -5);
+            }
+            if ((Count100s % 4) == 0)
+            {
+                GameObject block3 = Instantiate(Resources.Load("Block1", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+                block3.transform.position = new Vector3(Player.transform.position.x + Random.Range(blockSpawnDistance - blockVar, blockSpawnDistance + blockVar), Random.Range(680 - 80, 292 + 15), -5);
 
-                //Count100s = 0;
+            }//Count100s = 0;
                 //Object prefab1 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Sky_.prefab", typeof(GameObject));
-                GameObject sky = Instantiate(Resources.Load("Sky_", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-                // Modify the clone to your heart's content
-                sky.transform.position = new Vector3(startPos + 290, 108.9f, 0);
+                GameObject background = Instantiate(Resources.Load("DayBackground", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+               background.transform.position = new Vector3(BackgroundStartPos + 809.95f, 133f, 0);
+                BackgroundStartPos = BackgroundStartPos + 809.95f;
 
-
-                if(Random.Range(0,10) < enemySpawnChance)//generates mace with enemySpawnChance/10 chance
+                if (Random.Range(0,10) < enemySpawnChance)//generates mace with enemySpawnChance/10 chance
                 {
                     //GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
                 }
 
 
-                GameObject skyred = Instantiate(Resources.Load("Sky_Red", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-                skyred.transform.position = new Vector3(startPos + 290, 258.4f, 0);
+             //   GameObject skyred = Instantiate(Resources.Load("Sky_Red", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+             //   skyred.transform.position = new Vector3(startPos + 290, 258.4f, 0);
                 // GameObject mace = Instantiate(Resources.Load("Mace", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
 
                 //Count100s = 0;
                 //Object prefab2 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Ground.prefab", typeof(GameObject));
-                GameObject ground = Instantiate(Resources.Load("Ground", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-                ground.transform.position = new Vector3(startPos + 295, 55.0f, 0);
+            //    GameObject ground = Instantiate(Resources.Load("Ground", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+            //    ground.transform.position = new Vector3(startPos + 295, 55.0f, 0);
 
                 if(Random.Range(0,10) > boostSpawnChance)
                 {
@@ -207,7 +215,7 @@ public class cameraControl : MonoBehaviour
                
 
             }
-            if (Count100s == 1000)
+            if (Count100s == 500)
             {
                 // Object prefab3 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Finish.prefab", typeof(GameObject));
                 GameObject finishLine = Instantiate(Resources.Load("Finish", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;

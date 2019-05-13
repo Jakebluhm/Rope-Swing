@@ -111,7 +111,7 @@ public class GameController : MonoBehaviour
         // Debug.Log("fellOffFlag: " + fellOffFlag + ", first");
         //garbageMan();
         scoreCount = calculateScore();
-        if (StartingCameraPos.y - 65 > Player.transform.position.y)
+        if (StartingCameraPos.y - 92 > Player.transform.position.y)
         {
             print("Fell OFF");
 
@@ -174,10 +174,10 @@ public class GameController : MonoBehaviour
             
         }
 
-        /*StartingCameraPos = Camera.transform.position;
-        JumpClick = false;
-        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
-        Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;*/
+        StartingCameraPos = Camera.transform.position;
+        //JumpClick = false;
+        //Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
+        //Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;  
     }
 
     public bool GetJumpClick()
@@ -381,8 +381,8 @@ public class GameController : MonoBehaviour
             var csv = new System.Text.StringBuilder();
             var highScoreString = DB.HighScore.ToString();
             var newLine = string.Format(highScoreString);
-            csv.AppendLine(newLine);
-            File.WriteAllText(highScoreFilePath, csv.ToString());
+            //csv.AppendLine(newLine);
+           // File.WriteAllText(highScoreFilePath, csv.ToString());
 
         }
         scoreCount = 0;

@@ -120,3 +120,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LvlIndex: 1
+  requestLvlChange: 0
