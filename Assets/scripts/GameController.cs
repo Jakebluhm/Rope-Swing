@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour
     public float distance;
     private bool fellOffFlag;
 
-    string highScoreFilePath = "D:\\UNITY\\Source_tree_rope_swing\\Data\\HighScore.csv";
+    string highScoreFilePath = "C:\\Users\\bluhm\\Documents\\Rope-Swing\\Assets\\HighScore.csv";
 
 
     //public DB db = new DB();

@@ -92,50 +92,9 @@ public class cameraControl : MonoBehaviour
         }
         transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
 
+        
 
-
-            /*if (IsCoRutineRunning)
-             Debug.Log("Flag:" + IsCoRutineRunning + "   Cam.transform.position.y+ (camheight / 2)" +
-                    (Cam.transform.position.y + (camheight / 2)) + "   Player.transform.position.y + 20:   " + (Player.transform.position.y + 20));
-
-             if (!IsCoRutineRunning && Cam.transform.position.y + (camheight / 2) < Player.transform.position.y + 15)
-             {
-
-
-                 Vector3 Vec = new Vector3(xpos + 50, Cam.transform.position.y + 60, Cam.transform.position.z);
-
-
-         StartCoroutine(WaitAndMove(delayTime, Cam.transform.position, Vec));
-
-      }
-             else if (!IsCoRutineRunning && (Cam.transform.position.y - (camheight / 2) > Player.transform.position.y - 15) && Cam.transform.position.y  > bottomCamPos+2)
-             {
-                 if (Cam.transform.position.y - 60 < bottomCamPos)
-                 {
-                     temp = bottomCamPos;
-                 }
-                 else
-                 {
-                     temp = Cam.transform.position.y - 60;
-                 }
-
-                 Vector3 Vec = new Vector3(xpos + 50, temp, Cam.transform.position.z);
-
-                 if (!IsCoRutineRunning)
-                 {
-                     StartCoroutine(WaitAndMove(delayTime, Cam.transform.position, Vec));
-                 }
-             }
-            else if (!IsCoRutineRunning  &&    !(Cam.transform.position.y + (camheight / 2) < Player.transform.position.y + 15)
-               &&  !(Cam.transform.position.y - (camheight / 2) > Player.transform.position.y - 15))
-             {
-                 Cam.transform.position = new Vector3(xpos + 50, Cam.transform.position.y, Cam.transform.position.z);
-             }
-             */
-
-
-
-            if (startup == 1)
+        if (startup == 1)
         {
             startup = 0;
             //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Block.prefab", typeof(GameObject));
@@ -190,7 +149,7 @@ public class cameraControl : MonoBehaviour
             }//Count100s = 0;
                 //Object prefab1 = AssetDatabase.LoadAssetAtPath("Assets/prefab/Sky_.prefab", typeof(GameObject));
                 GameObject background = Instantiate(Resources.Load("DayBackground", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-               background.transform.position = new Vector3(BackgroundStartPos + 809.95f, 133f, 0);
+               background.transform.position = new Vector3(BackgroundStartPos + 809.95f, 133f, 50);
                 BackgroundStartPos = BackgroundStartPos + 809.95f;
 
                 if (Random.Range(0,10) < enemySpawnChance)//generates mace with enemySpawnChance/10 chance
@@ -210,7 +169,8 @@ public class cameraControl : MonoBehaviour
 
                 if(Random.Range(0,10) > boostSpawnChance)
                 {
-                    GameObject PickUpItem = Instantiate(Resources.Load("Boost", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+                    GameObject PickUpItem = Instantiate(Resources.Load("Boost", typeof(GameObject))   ) as GameObject;
+                    PickUpItem.transform.position = PickUpItem.transform.position + new Vector3(0, 0, -25);
                 }
                
 
@@ -222,19 +182,8 @@ public class cameraControl : MonoBehaviour
                 finishLine.transform.position = new Vector3(startPos + 300, 82.1f, 0);
 
             }
-
-
-              //  Object pefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Block.prefab", typeof(GameObject));
-
-            //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Block.prefab", typeof(GameObject));
-
-          
         }
-
-
-
-
-
+        
     }
     IEnumerator WaitAndMove(float delayTime, Vector3 from, Vector3 to)
     {
@@ -254,26 +203,20 @@ public class cameraControl : MonoBehaviour
         IsCoRutineRunning = false;
     }
 
-    // Linearly interpolates between two vectors.
-
-    public static Vector3 Lerp(Vector3 a, Vector3 b, float t, float x)
-
+    public static Vector3 Lerp(Vector3 a, Vector3 b, float t, float x) 
     {
 
         t = Mathf.Clamp01(t);
 
         return new Vector3(
 
-            x,
-
+            x, 
             a.y + (b.y - a.y) * t,
 
             a.z + (b.z - a.z) * t
 
-        );
-
-    }
-
+        ); 
+    } 
 }
 
 

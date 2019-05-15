@@ -15,8 +15,7 @@ public class gameOverButton : MonoBehaviour
 
 
         if (SceneManager.GetActiveScene().buildIndex == 2)  //checks that the scene index is the game over screen
-        {
-            Debug.Log("yeet");
+        { 
             //game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
             //creates highscore text on screen
             Font arial;
