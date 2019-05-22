@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour
     public float distance;
     private bool fellOffFlag;
 
-    string highScoreFilePath = "C:\\Users\\bluhm\\Documents\\Rope-Swing\\Assets\\HighScore.csv";
+    string highScoreFilePath = "C:\\Users\\bluhm\\Documents\\Rope-Swing\\Data\\HighScore.csv";
 
 
     //public DB db = new DB();
@@ -69,8 +69,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-       /* //reading in highscore from csv file
-        var reader = new StreamReader(File.OpenRead(highScoreFilePath));
+         //reading in highscore from csv file
+       /* var reader = new StreamReader(File.OpenRead(highScoreFilePath));
         List<string> searchList = new List<String>();
         while (!reader.EndOfStream)
         {
@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour
             DB.HighScore = dummy;
             //var line = reader.ReadLine();
             //searchList.Add(line);
-        }*/
+        } */
 
         xOffset = 19.2f;
         yOffset = 67.9f;

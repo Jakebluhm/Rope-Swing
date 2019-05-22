@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8963850269068117594}
+  - component: {fileID: 8259985105396400038}
   m_Layer: 0
   m_Name: DayBackground
   m_TagString: Untagged
@@ -46,6 +47,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8259985105396400038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413761938892984361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c5436528af1cef4880e80f9b3830715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &629135340933058070
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +71,7 @@ GameObject:
   - component: {fileID: 5911675001324227710}
   m_Layer: 0
   m_Name: Cloud_03 (1)
-  m_TagString: Untagged
+  m_TagString: cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +150,7 @@ GameObject:
   - component: {fileID: 7004011922048828174}
   m_Layer: 0
   m_Name: Cloud_02 (1)
-  m_TagString: Untagged
+  m_TagString: cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,7 +229,7 @@ GameObject:
   - component: {fileID: 1829671016801783273}
   m_Layer: 0
   m_Name: Cloud_02 (2)
-  m_TagString: Untagged
+  m_TagString: cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -394,7 +407,7 @@ GameObject:
   - component: {fileID: 5694279812741721386}
   m_Layer: 0
   m_Name: Cloud_03 (2)
-  m_TagString: Untagged
+  m_TagString: cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -631,7 +644,7 @@ GameObject:
   - component: {fileID: 660597624091561841}
   m_Layer: 0
   m_Name: Cloud_05 (2)
-  m_TagString: Untagged
+  m_TagString: cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -710,7 +723,7 @@ GameObject:
   - component: {fileID: 194611115135909106}
   m_Layer: 0
   m_Name: Cloud_01 (2)
-  m_TagString: Untagged
+  m_TagString: cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1046,7 +1059,7 @@ GameObject:
   - component: {fileID: 127443898663560012}
   m_Layer: 0
   m_Name: Cloud_05 (1)
-  m_TagString: Untagged
+  m_TagString: cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1283,7 +1296,7 @@ GameObject:
   - component: {fileID: 9084461442494306597}
   m_Layer: 0
   m_Name: Cloud_01 (1)
-  m_TagString: Untagged
+  m_TagString: cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

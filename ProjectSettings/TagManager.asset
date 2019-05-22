@@ -6,6 +6,7 @@ TagManager:
   tags:
   - UpgradeMenuBtn
   - Glider
+  - cloud
   layers:
   - Default
   - TransparentFX

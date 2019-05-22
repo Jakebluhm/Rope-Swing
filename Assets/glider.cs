@@ -68,7 +68,7 @@ public class glider : MonoBehaviour
         if (Input.GetKey("a") &&  !game.GetConnectedFlag())
         {
             //Player.GetComponent<Rigidbody2D>().drag = drag;
-            setOnPressVelocity(1);
+            //setOnPressVelocity(1);
             TiltUpPressed = true;
             Glider.transform.position = Player.transform.position + new Vector3(2, 5, 0);
 
@@ -86,7 +86,7 @@ public class glider : MonoBehaviour
         else if (Input.GetKey("s") && !game.GetConnectedFlag())
         {
             //Player.GetComponent<Rigidbody2D>().drag = drag;
-            setOnPressVelocity(2);
+            //setOnPressVelocity(2);
             GlidePressed = true;
             Glider.transform.position = Player.transform.position + new Vector3(2, 5, 0);
 
@@ -97,7 +97,7 @@ public class glider : MonoBehaviour
         {
             
             //Player.GetComponent<Rigidbody2D>().drag = drag;
-            setOnPressVelocity(0);
+            //setOnPressVelocity(0);
             TiltDownPressed = true;
             Glider.transform.position = Player.transform.position + new Vector3(2, 5, 0);
 
@@ -170,9 +170,10 @@ public class glider : MonoBehaviour
     }
     void setNewPlayerVelocity()
     {
-        float Area = 0.055f;
+        float Area = 0.1f;//0.055
         float airDensity = 1.225f;//1.225f; //kg/m^3
-        float CurrVelo = onPressVelocity.magnitude ;
+        float CurrVelo = Player.GetComponent<Rigidbody2D>().velocity.magnitude;//onPressVelocity.magnitude ;
+        CurrVelo = CurrVelo / 2.5f;
         float yCompVelocity = onPressVelocity.y;
         float xCompVelocity = onPressVelocity.x;
         float tiltInAngles;
@@ -201,9 +202,14 @@ public class glider : MonoBehaviour
         float stallSpeed = Mathf.Sqrt((2f * weight * 9.8f) / (airDensity * Area* (2 * Mathf.PI * 0.785398f)));
 
         float VeritcalLift = Lift * Mathf.Cos(tiltInRads);
+        if (VeritcalLift > Player.GetComponent<Rigidbody2D>().mass * 9.8f * Player.GetComponent<Rigidbody2D>().gravityScale + 20f)
+        {
+           //VeritcalLift = Player.GetComponent<Rigidbody2D>().mass * 9.8f * Player.GetComponent<Rigidbody2D>().gravityScale + 20f;
+        }
+
         float HorizontalLift = Lift * Mathf.Sin(tiltInRads);
         float VerticalDrag = Drag * Mathf.Sin(tiltInRads); 
-        float HorizontalDrag = Drag * Mathf.Cos(tiltInRads)  ;
+        float HorizontalDrag = Drag * Mathf.Cos(tiltInRads) ;
 
         float balenceVertical = VeritcalLift + VerticalDrag - weight;
         float balenceHorizontal = HorizontalLift - HorizontalDrag;

@@ -9,6 +9,7 @@ public class PickUpItem : MonoBehaviour
     public GameObject thisItem;
     public GameController game;
     public GameObject Player;
+    public GameObject glider;
     public Camera cam;
     private int itemIndex;
     private int itemX;
@@ -18,7 +19,7 @@ public class PickUpItem : MonoBehaviour
 
     void Start()
     {
-       
+        glider = GameObject.FindWithTag("Glider");
         Player = GameObject.FindWithTag("Player");
         game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         itemIndex = game.AddItem(this);
@@ -50,8 +51,17 @@ public class PickUpItem : MonoBehaviour
                 {
                     glider tempGlider = GameObject.FindGameObjectWithTag("Glider").GetComponent<glider>();
                     if (tempGlider.GliderActive())
-                    { 
-                        float tiltInAngles = (Player.transform.eulerAngles.z - 275f);
+                    {
+                        float tiltInAngles;
+                        if (glider.transform.eulerAngles.z > 0 && glider.transform.eulerAngles.z < 60)
+                        {
+
+                            tiltInAngles = glider.transform.eulerAngles.z;
+                        }
+                        else
+                        {
+                            tiltInAngles = glider.transform.eulerAngles.z - 360;
+                        }
                         float tiltInRads = 0.0174533f * tiltInAngles;
                         float cos = Mathf.Cos(tiltInRads);
                         float sin = Mathf.Sin(tiltInRads);
