@@ -29,15 +29,18 @@ public class InputClass : MonoBehaviour
 
             currCameraPos = transform.position.x;
              
-           float touchPosition = (Input.mousePosition.x) - 400f; 
-           float MiddleBoundry =  transform.position.x ; 
+           float touchPosition = (Input.mousePosition.x) - 530f + transform.position.x;
+            float MiddleBoundry =  transform.position.x ; 
            if (touchPosition > MiddleBoundry)
             {
                 ClickFlag = 1; // Right
+                Debug.Log("Diff: " + (touchPosition - MiddleBoundry) + "   Middle: " + MiddleBoundry + "    Touch Pos: " + touchPosition);
             }
             else
             {
                 ClickFlag = 0; // Left
+
+                Debug.Log("Diff: " + (touchPosition - MiddleBoundry) + "   Middle: " + MiddleBoundry + "    Touch Pos: " + touchPosition);
             }
         }
         else if (Input.GetMouseButtonUp(0))

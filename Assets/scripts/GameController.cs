@@ -14,25 +14,7 @@ using System.IO;
 using System;
 using Microsoft.VisualBasic;
 
-/*Todo: 
-* 
-*/
-
-/*Todo: Add level end code
- * once a spot is reached end that level
-*/
-
-/*Todo: Some power ups that can be picked up
-* 
-*/
-
-/*Todo: Menu system
- * btw each level have option to purchase upgrades
- * 
- * upgrade ideas:
- * 
- * 
- */
+ 
 
 public class GameController : MonoBehaviour
 {
@@ -54,7 +36,7 @@ public class GameController : MonoBehaviour
     public float distance;
     private bool fellOffFlag;
 
-    string highScoreFilePath = "C:\\Users\\bluhm\\Documents\\Rope-Swing\\Data\\HighScore.csv";
+    string highScoreFilePath = "C:\\Users\\bluhm\\Documents\\Rope-Swing\\Assets\\Data\\HighScore.csv";
 
 
     //public DB db = new DB();
@@ -70,15 +52,14 @@ public class GameController : MonoBehaviour
     void Awake()
     {
          //reading in highscore from csv file
-       /* var reader = new StreamReader(File.OpenRead(highScoreFilePath));
+         var reader = new StreamReader(File.OpenRead("Data\\HighScore.csv"));
         List<string> searchList = new List<String>();
         while (!reader.EndOfStream)
         {
-            Int32.TryParse(reader.ReadLine(), out var dummy);
-            DB.HighScore = dummy;
+            Int32.TryParse(reader.ReadLine(), out var dummy); 
             //var line = reader.ReadLine();
-            //searchList.Add(line);
-        } */
+            // searchList.Add(line);
+        }  
 
         xOffset = 19.2f;
         yOffset = 67.9f;
@@ -381,8 +362,8 @@ public class GameController : MonoBehaviour
             var csv = new System.Text.StringBuilder();
             var highScoreString = DB.HighScore.ToString();
             var newLine = string.Format(highScoreString);
-            //csv.AppendLine(newLine);
-           // File.WriteAllText(highScoreFilePath, csv.ToString());
+             csv.AppendLine(newLine);
+             File.WriteAllText("Data\\HighScore.csv", csv.ToString());
 
         }
         scoreCount = 0;
@@ -416,8 +397,9 @@ public class GameController : MonoBehaviour
     {
         if (Upgrades.Glider == 1)
         {
-            GameObject sky = Instantiate(Resources.Load("Glider", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-        }
+            GameObject gldr = Instantiate(Resources.Load("Glider", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject; 
+                
+                }
     }
 }
 

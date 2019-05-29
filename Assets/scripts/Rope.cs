@@ -20,7 +20,8 @@ public class Rope : MonoBehaviour
 {
     public HingeJoint2D currRope;
     public GameObject Player;
-    public GameObject Hinge;
+    public GameObject Hinge; 
+    private InputClass gameInput;
     private static int mouseState;
     public GameController game;
     private int index;
@@ -44,6 +45,7 @@ public class Rope : MonoBehaviour
         firstConnection = true;
         kek = 0;
         bool a = currRope.isActiveAndEnabled ;
+        gameInput = GameObject.FindWithTag("MainCamera").GetComponent<InputClass>();
     }//
     //
     // Update is called once per frame
@@ -73,61 +75,21 @@ public class Rope : MonoBehaviour
             //    Vector3 tempVec = Hinge.transform.position + (Vector3)Hinge.GetComponent<SpringJoint2D>().anchor;
             //     DrawLine(tempVec, Player.transform.position, new Color(250, 0, 0), false);
         }
-        if (game.GetJumpClick() &&Input.GetMouseButtonDown(0) && game.IsHingeClosest(index) && !game.GetConnectedFlag())
+        if (game.GetJumpClick() &&Input.GetMouseButtonDown(0) && game.IsHingeClosest(index) && !game.GetConnectedFlag()  )
         {
-
-                if (mouseState != 1)
+            if (Upgrades.Glider == 1)
+            {
+                if (gameInput.getInputFlag() == 0) // Only connect when left side of the screen is pressed
                 {
-                //Debug.Log(firstConnection);
-                    if (firstConnection) 
-                    {
-                        firstConnection = false;
-                        game.incrementConnections();
-                    }
-                //Object ropePrefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/VisualRope.prefab", typeof(GameObject));
-                    VisualRope = Instantiate(Resources.Load("VisualRope", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-                    // Modify the clone to your heart's content
-                    Vector3 temp = (Player.transform.position + CorrectedHingePosition()) * 0.5f;
-                    VisualRope.transform.position = new Vector3(temp.x , temp.y, -5);
-                //Debug.Log(temp);
-
-
-                    game.setIsConnected(this);
-                Vector2 vel =  Player.GetComponent<Rigidbody2D>().velocity + (12 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
-               // currRope.anchor = transform.position;
-                currRope.connectedBody = Player.GetComponent<Rigidbody2D>();
-                //currRope.connectedAnchor = Player.transform.position;
-                //currRope.autoConfigureConnectedAnchor=true;
-                //Player.GetComponent<Rigidbody2D>().AddForce( new Vector2(50f,0f));
-                //currRope.distance = currRope.distance - 5;
-                /** On left Click **/
-
-                //move the anchor to the correct position
-                //anchor.transform.position = new Vector3(hit.point.x, hit.point.y, 0);
-                //zero out any rotation
-                //anchor.transform.rotation = Quaternion.identity;
-                /*
-                //Create HingeJoints
-                HingeJoint2D joint = gameObject.AddComponent<HingeJoint2D>();
-                joint.anchor = CorrectedHingePosition();
-                //joint.axis = Vector3.back; /// (0,0,-1)
-                //joint.anchor = Vector3.zero;
-                joint.connectedBody = Player.GetComponent<Rigidbody2D>();
-                HingeJoint2D anchorJoint = Hinge.AddComponent<HingeJoint2D>();
-                //anchorJoint.axis = Vector3.back; /// (0,0,-1)
-                anchorJoint.anchor = Vector3.zero;
-
-                //Now just add Force!
-
-                /** On left Click release **/
-
-                //Destroy HingeJoints
-                //Destroy(joint);
-                //Destroy(anchorJoint);
-                
+                    Connect();
+                }
             }
-                mouseState = 1;
-          //  }
+            if (Upgrades.Glider == 0) // Connect on any input when no upgrades are active.
+            {
+ 
+                    Connect();
+                 
+            }
         }
         if (Input.GetMouseButtonUp(0) )
         {
@@ -164,5 +126,24 @@ public class Rope : MonoBehaviour
     public void setFirstConnection(bool b)
     {
         this.firstConnection = b;
+    }
+    private void Connect() {
+        if (mouseState != 1)
+        {
+            if (firstConnection)
+            {
+                firstConnection = false;
+                game.incrementConnections();
+            }
+            VisualRope = Instantiate(Resources.Load("VisualRope", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+            // Modify the clone to your heart's content
+            Vector3 temp = (Player.transform.position + CorrectedHingePosition()) * 0.5f;
+            VisualRope.transform.position = new Vector3(temp.x, temp.y, -5);
+
+            game.setIsConnected(this);
+            Vector2 vel = Player.GetComponent<Rigidbody2D>().velocity + (12 * Player.GetComponent<Rigidbody2D>().velocity.normalized);
+            currRope.connectedBody = Player.GetComponent<Rigidbody2D>();
+        }
+        mouseState = 1;
     }
 }

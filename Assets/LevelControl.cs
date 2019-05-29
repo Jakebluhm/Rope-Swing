@@ -29,8 +29,7 @@ public class LevelControl : MonoBehaviour
 
     public void restart()
     {
-        GameObject game = GameObject.FindWithTag("Game Controller");
-        Debug.Log("sugma");
+        GameObject game = GameObject.FindWithTag("Game Controller"); 
         SceneManager.LoadScene(0);
     }
 }
