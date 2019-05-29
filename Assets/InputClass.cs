@@ -34,13 +34,13 @@ public class InputClass : MonoBehaviour
            if (touchPosition > MiddleBoundry)
             {
                 ClickFlag = 1; // Right
-                Debug.Log("Diff: " + (touchPosition - MiddleBoundry) + "   Middle: " + MiddleBoundry + "    Touch Pos: " + touchPosition);
+                //Debug.Log("Diff: " + (touchPosition - MiddleBoundry) + "   Middle: " + MiddleBoundry + "    Touch Pos: " + touchPosition);
             }
             else
             {
                 ClickFlag = 0; // Left
 
-                Debug.Log("Diff: " + (touchPosition - MiddleBoundry) + "   Middle: " + MiddleBoundry + "    Touch Pos: " + touchPosition);
+                //Debug.Log("Diff: " + (touchPosition - MiddleBoundry) + "   Middle: " + MiddleBoundry + "    Touch Pos: " + touchPosition);
             }
         }
         else if (Input.GetMouseButtonUp(0))
