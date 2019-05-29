@@ -261,6 +261,9 @@ public class GameController : MonoBehaviour
         // Provide Text position and size using RectTransform.
 
         score.transform.position = new Vector3(850, 520, -5);
+
+        //On Screen score for iphone
+        //score.transform.position = new Vector3(1350, 820, -5);
     }
 
     public void updateScore()

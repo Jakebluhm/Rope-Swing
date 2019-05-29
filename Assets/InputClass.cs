@@ -12,12 +12,23 @@ public class InputClass : MonoBehaviour
 
     private float waitTime = 0.05f;
     private float timer = 0.0f;
+    private float touchOffest;
     // Start is called before the first frame update
     void Start()
     {
         cameraStartPos = transform.position.x;
         cameraWidth = 1000;
         ClickFlag = -1;
+        if (SystemInfo.operatingSystem.Contains("iPhone") || SystemInfo.operatingSystem.Contains("Mac"))
+        {
+            touchOffest = 710f;
+            Debug.Log("Running on iphone or mac");
+        }
+        else
+        {
+            touchOffest = 530f;
+            Debug.Log("Running on pc");
+        }
     }
 
     // Update is called once per frame
@@ -29,7 +40,7 @@ public class InputClass : MonoBehaviour
 
             currCameraPos = transform.position.x;
              
-           float touchPosition = (Input.mousePosition.x) - 530f + transform.position.x;
+           float touchPosition = (Input.mousePosition.x) - touchOffest + transform.position.x;
             float MiddleBoundry =  transform.position.x ; 
            if (touchPosition > MiddleBoundry)
             {

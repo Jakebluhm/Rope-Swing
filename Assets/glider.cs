@@ -17,11 +17,13 @@ public class glider : MonoBehaviour
     private float waitTime = 0.05f;
     private float timer = 0.0f;
     private float dragWeight  ;
+    private bool firstClick;
     CSVParsing CoefData;
     // Start is called before the first frame update
     void Start()
     { 
-        dragWeight = 0.5f;
+        dragWeight = 0.3f;
+        firstClick = true;
         CoefData = GameObject.FindWithTag("Glider").GetComponent<CSVParsing>();
         game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         float startAngle = -90f;
@@ -29,7 +31,7 @@ public class glider : MonoBehaviour
         //Player.transform.rotation = new Quaternion(0, 0, -90, 0);
         Glider.transform.position = Player.transform.position + new Vector3(0, 10, 0);
         Player.transform.eulerAngles = new Vector3(0, 0, startAngle);
-        Glider.transform.eulerAngles = new Vector3(65, 0, 90 + startAngle);
+        Glider.transform.eulerAngles = new Vector3(65, 0, 80 + startAngle);
         LastMousePosX = 0f;
         gameInput = GameObject.FindWithTag("MainCamera").GetComponent<InputClass>();
         //Player.GetComponent<Rigidbody2D>().gravityScale = 0.7f;
@@ -41,16 +43,21 @@ public class glider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
- 
-            bool firstPress = false;
+             
             float tilt = 1f;
             float drag = 0.1f;
             float dragDistance;
-
+               float newRot ;
             float tiltInAngles = Glider.transform.eulerAngles.z;
             if (gameInput.getInputFlag() == 1)
             {
 
+                if (firstClick)
+                {
+                    LastMousePosX = Input.mousePosition.x;
+                }
+
+                firstClick = false;
                 Glider.transform.position = Player.transform.position + new Vector3(2, 5, 0);
               /*  timer += Time.deltaTime;
                 if (timer > waitTime)
@@ -64,11 +71,23 @@ public class glider : MonoBehaviour
                             //Todo: Make rotation smooth
                             dragDistance = LastMousePosX - Input.mousePosition.x;
                             dragDistance *= dragWeight;
-                            Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, dragDistance);
-                            Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, dragDistance);
-                        }
-                        Debug.Log("Left: Last " + LastMousePosX + "   Current " + Input.mousePosition.x);
+                            newRot = (Glider.transform.eulerAngles + new Vector3(0, 0, dragDistance)).z;
+                            Debug.Log("New Rotation: " + newRot);
+ 
+                            if (newRot >= 319 && newRot <= 365 || newRot <= 60 && newRot >= -5 || newRot < 0 && newRot > -0.5f)
+                            { 
+                                Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, dragDistance);
+                                Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, dragDistance);
+                            }
+                            else
+                            {  
+                                Glider.transform.eulerAngles = new Vector3(Glider.transform.eulerAngles.x, Glider.transform.eulerAngles.y, 60);
+                            }
 
+                    newRot = (Glider.transform.eulerAngles + new Vector3(0, 0, dragDistance)).z;
+                    Debug.Log("New Rotation: " + newRot);
+                } 
+                       //Debug.Log("Left: Last " + LastMousePosX + "   Current " + Input.mousePosition.x); 
                         setNewPlayerVelocity();
                     }
                     else if (LastMousePosX < Input.mousePosition.x)
@@ -79,25 +98,43 @@ public class glider : MonoBehaviour
                         {
                             dragDistance = LastMousePosX - Input.mousePosition.x;
                             dragDistance *= dragWeight;
-                            Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, dragDistance);
-                            Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, dragDistance);
-                        }
-                        Debug.Log("Right:  Last " + LastMousePosX + "   Current " + Input.mousePosition.x);
+                            newRot = (Glider.transform.eulerAngles + new Vector3(0, 0, dragDistance)).z; 
+                            /*if (newRot < 320 && newRot > 360 || newRot > 61 && newRot < 0  )
+                             {
+                                 Player.transform.eulerAngles = new Vector3(0, 0, -40);
+                                 Glider.transform.eulerAngles = new Vector3(0, 0, 320);
+                             }
+                             else
+                             {
+                                 Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, dragDistance);
+                                 Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, dragDistance);
+                             }*/
+                            if (newRot >= 320 && newRot <= 365 || newRot <= 61 && newRot >= -5 || newRot < 0 && newRot > -0.5f)
+                            { 
+                                Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, dragDistance);
+                                Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, dragDistance);
+                            }
+                            else
+                            { 
+                                Glider.transform.eulerAngles = new Vector3(Glider.transform.eulerAngles.x, Glider.transform.eulerAngles.y, 320);
+                            }
 
-                        setNewPlayerVelocity();
-
+                    newRot = (Glider.transform.eulerAngles + new Vector3(0, 0, dragDistance)).z;
+                    Debug.Log("New Rotation: " + newRot);
+                }
+                        // Debug.Log("Right:  Last " + LastMousePosX + "   Current " + Input.mousePosition.x); 
+                        setNewPlayerVelocity(); 
                     }
                     else
                     {
                         GlidePressed = true;
 
                         setNewPlayerVelocity();
-                    }
-               // }
+                    } 
             }
             else
             {
-
+                firstClick = true;
                 //Player.GetComponent<Rigidbody2D>().drag = 0f;
                 GlidePressed = false;
                 TiltDownPressed = false;
@@ -238,7 +275,7 @@ public class glider : MonoBehaviour
         float yCompVelocity = onPressVelocity.y;
         float xCompVelocity = onPressVelocity.x;
         float tiltInAngles;
-        if(Glider.transform.eulerAngles.z > 0 && Glider.transform.eulerAngles.z < 60 || Glider.transform.eulerAngles.z == 0)
+        if(Glider.transform.eulerAngles.z > 0 && Glider.transform.eulerAngles.z <= 61 || Glider.transform.eulerAngles.z == 0)
         {
 
             tiltInAngles = Glider.transform.eulerAngles.z;

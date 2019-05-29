@@ -28,7 +28,7 @@ public class CSVParsing : MonoBehaviour
         catch (System.Exception e)
         {
             // Something unexpected went wrong.
-            print(e);
+            Debug.Log("Unable to read Coefficent Data " + e);
             // Maybe it is also necessary to terminate / restart the application.
         }
         print(results);
@@ -67,6 +67,7 @@ public class CSVParsing : MonoBehaviour
     public void addData()
     {
         // Following line adds data to CSV file
+        Debug.Log(Application.dataPath);
         File.AppendAllText(getPath() + "/Assets/CoefData.csv", lineSeperater + rollNoInputField.text + fieldSeperator + nameInputField.text);
         // Following lines refresh the edotor and print data
         rollNoInputField.text = "";
