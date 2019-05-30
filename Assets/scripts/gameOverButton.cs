@@ -50,7 +50,7 @@ public class gameOverButton : MonoBehaviour
             score.color = Color.black;
 
             // Provide Text position and size using RectTransform.
-            score.transform.position = new Vector3(460, 390, -5);
+            score.transform.position = new Vector3(460, 410, -5);
             score.text = "Score: " + DB.Score;
             
             highScore = textGO1.GetComponent<Text>();
@@ -60,7 +60,7 @@ public class gameOverButton : MonoBehaviour
             highScore.color = Color.black;
 
             // Provide Text position and size using RectTransform.
-            highScore.transform.position = new Vector3(460, 335, -5);
+            highScore.transform.position = new Vector3(460, 315, -5);
             highScore.text = "High Score: " + DB.HighScore;
             
 

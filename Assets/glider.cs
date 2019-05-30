@@ -258,7 +258,7 @@ public class glider : MonoBehaviour
         }
         catch (System.Exception x)
         {
-            Debug.Log("Lift Coefficent Error");
+            Debug.Log("drag Coefficent Error");
         }
         return -99;
     }
@@ -268,7 +268,7 @@ public class glider : MonoBehaviour
     }
     void setNewPlayerVelocity()
     {
-        float Area = 0.1f;//0.055
+        float Area = 0.225f;//0.055
         float airDensity = 1.225f;//1.225f; //kg/m^3
         float CurrVelo = Player.GetComponent<Rigidbody2D>().velocity.magnitude;//onPressVelocity.magnitude ;
         CurrVelo = CurrVelo / 2.5f;
@@ -294,6 +294,8 @@ public class glider : MonoBehaviour
             liftCoefficent = 2 * Mathf.PI * tiltInRads; //Decending glider Should get this*/
         liftCoefficent = getLiftCoefficent(tiltInAngles);//2 * Mathf.PI * tiltInRads;
         float dragCoefficent = getDragCoefficent(tiltInAngles);//1.28f * Mathf.Sin(tiltInRads);//
+        Debug.Log(liftCoefficent + " <lc     dc> " + dragCoefficent);
+
         float Lift = liftCoefficent * ((CurrVelo * CurrVelo * airDensity) / 2) * Area;
         float Drag = (dragCoefficent * ((CurrVelo * CurrVelo * airDensity) / 2) * Area) ;
         float weight = 9.8f * Player.GetComponent<Rigidbody2D>().mass;

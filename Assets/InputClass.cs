@@ -19,7 +19,7 @@ public class InputClass : MonoBehaviour
         cameraStartPos = transform.position.x;
         cameraWidth = 1000;
         ClickFlag = -1;
-        if (SystemInfo.operatingSystem.Contains("iPhone") || SystemInfo.operatingSystem.Contains("Mac"))
+        if (  (Application.platform == RuntimePlatform.IPhonePlayer) || SystemInfo.operatingSystem.Contains("Mac"))
         {
             touchOffest = 710f;
             Debug.Log("Running on iphone or mac");

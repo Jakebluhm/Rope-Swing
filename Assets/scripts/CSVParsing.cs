@@ -24,6 +24,7 @@ public class CSVParsing : MonoBehaviour
         try
         {
             readData();
+            Debug.Log("Succsessfully read Coefficent Data ");
         }
         catch (System.Exception e)
         {

@@ -11,7 +11,6 @@ using UnityEngine.Experimental.UIElements;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-using System;
 using Microsoft.VisualBasic;
 
  
@@ -36,7 +35,7 @@ public class GameController : MonoBehaviour
     public float distance;
     private bool fellOffFlag;
 
-    string highScoreFilePath = "C:\\Users\\bluhm\\Documents\\Rope-Swing\\Assets\\Data\\HighScore.csv";
+    string highScoreFilePath = " Data\\HighScore.csv";
 
 
     //public DB db = new DB();
@@ -51,16 +50,48 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-         //reading in highscore from csv file
-         var reader = new StreamReader(File.OpenRead("Data\\HighScore.csv"));
+        DataSaver.loadData<string>("HighScore");
+
+        
+
+        string datapath;
+        Debug.Log("Thiiiiiis: "+ Application.persistentDataPath);
+        if (Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            Debug.Log("app is running on iphone");
+        }
+        else
+        {
+            Debug.Log("Application.platform didnt work. systeminfo.os output is :"+SystemInfo.operatingSystem);
+        }
+
+        if (Application.platform == RuntimePlatform.IPhonePlayer   )
+        {
+            datapath = Application.dataPath + "/HighScore.csv";
+            Debug.Log("iphone " + datapath);
+        }
+        else if(SystemInfo.operatingSystem.Contains("Mac"))
+        {
+            datapath = Application.dataPath + "/Data/HighScore.csv";
+            Debug.Log("mac " + datapath);
+        }
+        else
+        {
+            datapath = highScoreFilePath;
+            Debug.Log("Pc " +datapath);
+        }
+        //reading in highscore from csv file 
+         var reader = new StreamReader(new MemoryStream(( Resources.Load("HighScore") as TextAsset).bytes));
         List<string> searchList = new List<String>();
         while (!reader.EndOfStream)
         {
             Int32.TryParse(reader.ReadLine(), out var dummy); 
             //var line = reader.ReadLine();
+            //reader.
             // searchList.Add(line);
-        }  
+        }
 
+        Debug.Log("Succsessfully read High score Data ");
         xOffset = 19.2f;
         yOffset = 67.9f;
         sceneSwitcher = new SceneSwitch();
@@ -268,7 +299,7 @@ public class GameController : MonoBehaviour
 
     public void updateScore()
     {
-        score.text = "score: " + scoreCount;
+        score.text = "score: " + (int)scoreCount;
         //Debug.Log(score.text + scoreCount)
     }
 
@@ -366,7 +397,9 @@ public class GameController : MonoBehaviour
             var highScoreString = DB.HighScore.ToString();
             var newLine = string.Format(highScoreString);
              csv.AppendLine(newLine);
-             File.WriteAllText("Data\\HighScore.csv", csv.ToString());
+
+            DataSaver.saveData<string>(csv.ToString(), "HighScore");
+             //File.WriteAllText("Data\\HighScore.csv", csv.ToString());
 
         }
         scoreCount = 0;
