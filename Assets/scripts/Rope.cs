@@ -9,6 +9,7 @@ using UnityEditor;
 
 /*
  * Rope class decieds what cloud is the closest and connects to it on click
+ * It holds
  * 
 */
 
@@ -65,7 +66,8 @@ public class Rope : MonoBehaviour
     void Update()
     {
         /*Form the visable rope you see on screen if the mouse state is 1 (left click held down),
-        * The index of the cloud that is being swung from is the same as the one in the game controller
+        * The index (the index of THIS connection point in the array of connection points)
+        * of the cloud that is being swung from is the same as the one in the game controller
         * (game.getConnected()), and the game controller has a flag set with (game.GetConnectedFlag()).
         */
         if (mouseState == 1 &&  index == game.getConnected() && game.GetConnectedFlag())
@@ -87,7 +89,16 @@ public class Rope : MonoBehaviour
             VisualRope.transform.localScale = new Vector3(.25f, tempAng.magnitude/ 10f, .25f);
             VisualRope.transform.eulerAngles = new Vector3(0,0, angle+ 90);
         }
-        if (game.GetJumpClick() &&Input.GetMouseButtonDown(0) && game.IsHingeClosest(index) && !game.GetConnectedFlag()  )
+
+        /*
+         * This if stantment is run on first press and connects the player to the nearest connection point.
+         * it relies on the following to be true.
+         * game.GetJumpClick()  -  
+         * Input.GetMouseButtonDown(0) - Left mouse click down (also works for touch)
+         * game.IsHingeClosest(index)  - Looks through an array of all possible connection points
+         * !game.GetConnectedFlag()
+         */
+        if (game.GetJumpClick() && Input.GetMouseButtonDown(0) && game.IsHingeClosest(index) && !game.GetConnectedFlag()  )
         {
             if (Upgrades.Glider == 1)
             {
