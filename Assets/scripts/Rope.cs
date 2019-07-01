@@ -16,33 +16,28 @@ using UnityEditor;
 
 public class Rope : MonoBehaviour
 {
-    /*  */
+    /* The joint that holds the player and the cloud at a constant distance */
     public HingeJoint2D currRope;
-    /*  */
+    /* The games player */
     public GameObject Player;
-    /*  */
+    /* Each instance of Rope belongs to a cloud (hinge) */
     public GameObject Hinge;
-    /*  */
+    /* Input class that shows where on the screen input is coming from */
     private InputClass gameInput;
-    /*  */
+    /* Mouse state 1 = clicked    0 = not clicked */
     private static int mouseState;
-    /*  */
+    /* Game controller instance. See GameController class */
     public GameController game;
-    /*  */
+    /* Index of the current hinge in the GameController class */
     private int index;
-    /*  */
-    private bool isConnected;
-    /*  */
+    /* The visual to the rope connection */ 
     private GameObject VisualRope;
-    /*  */
+    /* Used to correct the coordinates of the cloud (hinge) */
     private float xOffset;
-    /*  */
+    /* Used to correct the coordinates of the cloud (hinge) */
     private float yOffset;
-    /*  */
-    private bool firstConnection;
-    /*  */
-    private int kek;
-    /*  */
+    /* Flag to ignore first click, because the first click tells the player to jump. */
+    private bool firstConnection; 
 
     // Start is called before the first frame update
     void Start()
@@ -51,11 +46,9 @@ public class Rope : MonoBehaviour
         yOffset = 67.9f;
         mouseState = -1;
         Player = GameObject.FindWithTag("Player");
-        game = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-        isConnected = false;
+        game = GameObject.FindWithTag("GameController").GetComponent<GameController>(); 
         index = game.AddHinge(this);
-        firstConnection = true;
-        kek = 0;
+        firstConnection = true; 
         bool a = currRope.isActiveAndEnabled ;
         gameInput = GameObject.FindWithTag("MainCamera").GetComponent<InputClass>();
     }
@@ -100,6 +93,7 @@ public class Rope : MonoBehaviour
          */
         if (game.GetJumpClick() && Input.GetMouseButtonDown(0) && game.IsHingeClosest(index) && !game.GetConnectedFlag()  )
         {
+            // If the glider is active connect only when the left half of the screen is pressed
             if (Upgrades.Glider == 1)
             {
                 if (gameInput.getInputFlag() == 0) // Only connect when left side of the screen is pressed
@@ -107,7 +101,8 @@ public class Rope : MonoBehaviour
                     Connect();
                 }
             }
-            if (Upgrades.Glider == 0) // Connect on any input when no upgrades are active.
+            // Connect on any input when no upgrades are active.
+            if (Upgrades.Glider == 0) 
             {
  
                     Connect();

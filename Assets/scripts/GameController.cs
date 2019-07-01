@@ -50,11 +50,11 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        DataSaver.loadData<string>("HighScore");
+       string tempHiScore =  DataSaver.loadData<string>("HighScore");
+        DB.HighScore = float.Parse(tempHiScore);
+            
 
-        
-
-        string datapath;
+        /*string datapath;
         Debug.Log("Thiiiiiis: "+ Application.persistentDataPath);
         if (Application.platform == RuntimePlatform.IPhonePlayer)
         {
@@ -89,7 +89,7 @@ public class GameController : MonoBehaviour
             //var line = reader.ReadLine();
             //reader.
             // searchList.Add(line);
-        }
+        }*/
 
         Debug.Log("Succsessfully read High score Data ");
         xOffset = 19.2f;
