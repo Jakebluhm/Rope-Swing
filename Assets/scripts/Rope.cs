@@ -7,30 +7,41 @@ using UnityEditor;
 
 
 
-/*Todo: Animations are included in assets on unity, Look up toutorial on how to
- * animate character so itll look like its moving
- * Maybe animate when rope is getting grabbed and when its let go
+/*
+ * Rope class decieds what cloud is the closest and connects to it on click
+ * 
 */
-/*Todo: Make rope physics better.
- * Already added speed and shorten rope every new connection made
- * to make it so its not so hard to swing.
-* 
-*/
+
+
 public class Rope : MonoBehaviour
 {
+    /*  */
     public HingeJoint2D currRope;
+    /*  */
     public GameObject Player;
-    public GameObject Hinge; 
+    /*  */
+    public GameObject Hinge;
+    /*  */
     private InputClass gameInput;
+    /*  */
     private static int mouseState;
+    /*  */
     public GameController game;
+    /*  */
     private int index;
+    /*  */
     private bool isConnected;
+    /*  */
     private GameObject VisualRope;
+    /*  */
     private float xOffset;
+    /*  */
     private float yOffset;
+    /*  */
     private bool firstConnection;
+    /*  */
     private int kek;
+    /*  */
 
     // Start is called before the first frame update
     void Start()
@@ -46,34 +57,35 @@ public class Rope : MonoBehaviour
         kek = 0;
         bool a = currRope.isActiveAndEnabled ;
         gameInput = GameObject.FindWithTag("MainCamera").GetComponent<InputClass>();
-    }//
-    //
-    // Update is called once per frame
+    }
+    
+    /* Update is called once per frame
+    *
+    */
     void Update()
     {
-        
-
+        /*Form the visable rope you see on screen if the mouse state is 1 (left click held down),
+        * The index of the cloud that is being swung from is the same as the one in the game controller
+        * (game.getConnected()), and the game controller has a flag set with (game.GetConnectedFlag()).
+        */
         if (mouseState == 1 &&  index == game.getConnected() && game.GetConnectedFlag())
         {
+            //transform.position gives the transform of the gameobject this script 
+            // is connected to in the unity editor.
             Vector3 temp = (Player.transform.position + transform.position);
             Vector3 tempAng = (Player.transform.position - transform.position);
+
+            //temp now holds the coordinates at the half way point between the point of
+            // connection and the player, using the midpoint formula
             temp = temp * 0.5f;
+
+        
             float angle = Mathf.Atan2(tempAng.y, tempAng.x) * Mathf.Rad2Deg;
 
-            //Debug.Log("angle:" + angle +"     Mag  " + temp.magnitude + "  //10");
-
-           
-
-            
+            //Create/Update the ropes scale, posiition and angle.
             VisualRope.transform.position = new Vector3(temp.x, temp.y, -5);
             VisualRope.transform.localScale = new Vector3(.25f, tempAng.magnitude/ 10f, .25f);
-
-
-
-           VisualRope.transform.eulerAngles = new Vector3(0,0, angle+ 90);
-
-            //    Vector3 tempVec = Hinge.transform.position + (Vector3)Hinge.GetComponent<SpringJoint2D>().anchor;
-            //     DrawLine(tempVec, Player.transform.position, new Color(250, 0, 0), false);
+            VisualRope.transform.eulerAngles = new Vector3(0,0, angle+ 90);
         }
         if (game.GetJumpClick() &&Input.GetMouseButtonDown(0) && game.IsHingeClosest(index) && !game.GetConnectedFlag()  )
         {
