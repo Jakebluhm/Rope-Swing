@@ -17,30 +17,30 @@ public class cameraControl : MonoBehaviour
 
 
 
-    public Camera Cam;
-    public GameObject Player;
-    static float startPos;
-    private int Count100s;
+    public Camera Cam;          //camera object
+    public GameObject Player;   //player object
+    static float startPos;      //position where player starts
+    private int Count100s;      //helper variable to determine distance
 
-    private int Count50s;
-    public int groundWidth = 294;
-    public int cameraWidth = 228;
-    public int cameraHelper = 0;
+    private int Count50s;       //second helper variable to determine distancec traveled
+    public int groundWidth = 294;   //width of background
+    public int cameraWidth = 228;   //width of camera view
+    public int cameraHelper = 0;    //helper variable
     public int boostSpawnChance = 4;    // boostSpawnChance / 10 to spawn a boost every x distance
-    public int startup = 1;
-
-    public GameController game;
+    public int startup = 1;     //helper variable
+        
+    public GameController game; //game object
 
     // public int blockSpawnDistance = 150;
-    public int enemySpawnChance = 6;
-    
+    public int enemySpawnChance = 3;// enemySpawnChance / 10 to spawn an enemy every x distance
 
-    public int blockSpawnDistance = 200;
-    public int blockVar = 15;
 
-    private int camheight;
+    public int blockSpawnDistance = 200;    //distance between blocks
+    public int blockVar = 15;           
+
+    private int camheight;      //height of camera
     private bool IsCoRutineRunning;
-    private float bottomCamPos;
+    private float bottomCamPos;//bottom of the campera position
     private float delayTime;
 
     //Cam Vars 
