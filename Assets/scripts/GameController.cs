@@ -17,34 +17,45 @@ using Microsoft.VisualBasic;
 
 public class GameController : MonoBehaviour
 {
+    /* A list of all the clouds (hinges) that the player can connect to */
     public List<Rope> Hinges;
+    /* List of pick of items (Boost,...) */
     public List<PickUpItem> Items;
+    /* List of Enemies */
     public List<Enemies> EnemyList;
+    /* Holds the index of the connected hinge */
     public int isConnected;
+    /* The games camera (See in unity editor) */
     public GameObject Camera;
+    /* The games player (See in unity editor) */
     public GameObject Player;
+    /* Flag that is set when the player is connected to a cloud */
     public bool Connected;
+    /* SceneSwitch controlls the switching of menus */
     public SceneSwitch sceneSwitcher;
+    /* Used to correct the coordinates of the cloud (hinge) */
     private float xOffset;
+    /* Used to correct the coordinates of the cloud (hinge) */
     private float yOffset;
+    /* On screen score  */
     public Text score;
+    /* Holds the current score */
     public float scoreCount;
+    /* tallys the number of connections */
     public int connectionCount;
+    /*  Holds the highest hight recorded by player */
     public float highestHeight;
+    /* Holds the greatest speed recorded by player */
     public float topSpeed;
+    /*  Holds the greatest distance recorded by player */
     public float distance;
-    private bool fellOffFlag;
+    /* Flag that is set when the player falls off */
+    private bool fellOffFlag; 
 
     string highScoreFilePath = " Data\\HighScore.csv";
-
-
-    //public DB db = new DB();
-
-
-
+       
     Vector3 StartingCameraPos;
-
-
+     
     public bool JumpClick;
 
     // Start is called before the first frame update
