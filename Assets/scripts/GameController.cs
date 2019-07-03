@@ -18,83 +18,65 @@ using System.Globalization;
 
 public class GameController : MonoBehaviour
 {
+    /* A list of all the clouds (hinges) that the player can connect to */
     public List<Rope> Hinges;
+    /* List of pick of items (Boost,...) */
     public List<PickUpItem> Items;
+    /* List of Enemies */
     public List<Enemies> EnemyList;
+    /* Holds the index of the connected hinge */
     public int isConnected;
+    /* The games camera (See in unity editor) */
     public GameObject Camera;
+    /* The games player (See in unity editor) */
     public GameObject Player;
+    /* Flag that is set when the player is connected to a cloud */
     public bool Connected;
+    /* SceneSwitch controlls the switching of menus */
     public SceneSwitch sceneSwitcher;
+    /* Used to correct the coordinates of the cloud (hinge) */
     private float xOffset;
+    /* Used to correct the coordinates of the cloud (hinge) */
     private float yOffset;
+    /* On screen score  */
     public Text score;
+    /* Holds the current score */
     public float scoreCount;
+    /* tallys the number of connections */
     public int connectionCount;
+    /*  Holds the highest hight recorded by player */
     public float highestHeight;
+    /* Holds the greatest speed recorded by player */
     public float topSpeed;
+    /*  Holds the greatest distance recorded by player */
     public float distance;
-    private bool fellOffFlag;
+    /* Flag that is set when the player falls off */
+    private bool fellOffFlag; 
 
     string highScoreFilePath = " Data\\HighScore.csv";
-
-
-    //public DB db = new DB();
-
-
-
+       
     Vector3 StartingCameraPos;
-
-
+     
     public bool JumpClick;
 
     // Start is called before the first frame update
     void Awake()
     {
+
         string HighScore = DataSaver.loadData<string>("HighScore");//reads in from csv file
         Debug.Log(HighScore);
         DB.HighScore = float.Parse(HighScore, CultureInfo.InvariantCulture.NumberFormat);//converts string to flat
 
-        /*
-        string datapath;
-        Debug.Log("Thiiiiiis: "+ Application.persistentDataPath);
-        if (Application.platform == RuntimePlatform.IPhonePlayer)
-        {
-            Debug.Log("app is running on iphone");
-        }
-        else
-        {
-            Debug.Log("Application.platform didnt work. systeminfo.os output is :"+SystemInfo.operatingSystem);
-        }
-
-        if (Application.platform == RuntimePlatform.IPhonePlayer   )
-        {
-            datapath = Application.dataPath + "/HighScore.csv";
-            Debug.Log("iphone " + datapath);
-        }
-        else if(SystemInfo.operatingSystem.Contains("Mac"))
-        {
-            datapath = Application.dataPath + "/Data/HighScore.csv";
-            Debug.Log("mac " + datapath);
-        }
-        else
-        {
-            datapath = highScoreFilePath;
-            Debug.Log("Pc " +datapath);
-        }
-        //reading in highscore from csv file 
-         var reader = new StreamReader(new MemoryStream(( Resources.Load("HighScore") as TextAsset).bytes));
-        List<string> searchList = new List<String>();
-        while (!reader.EndOfStream)
-        {
-            Int32.TryParse(reader.ReadLine(), out var dummy); 
-            //var line = reader.ReadLine();
-            //reader.
-            // searchList.Add(line);
-        }
-        */
+      
 
         Debug.Log("Succsessfully read High score Data ");
+
+        //Load the highscore and set highscore upon each life
+        string tempHiScore =  DataSaver.loadData<string>("HighScore");
+        DB.HighScore = float.Parse(tempHiScore);
+             
+        //Initilize instance variables
+
         xOffset = 19.2f;
         yOffset = 67.9f;
         sceneSwitcher = new SceneSwitch();
@@ -109,43 +91,33 @@ public class GameController : MonoBehaviour
         connectionCount = 0;
         distance = 0;
         highestHeight = 0;
-        topSpeed = 0;
-        
+        topSpeed = 0; 
         fellOffFlag = false;
         initScore();
 
-
+        //Freeze the player upon each life. Taping or clicking makes the player start moving
         Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
         Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
     }
 
+    //Runs once a frame
     void Update()
     {
+        //
         checkForEnter();
+        //
         updateScore();
-        // Debug.Log("fellOffFlag: " + fellOffFlag + ", first");
-        //garbageMan();
+    
         scoreCount = calculateScore();
+
+        //If the player falls off the map respawn player
         if (StartingCameraPos.y - 92 > Player.transform.position.y)
-        {
-            print("Fell OFF");
-
-            //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Player.prefab", typeof(GameObject));
-            //  Player = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-            // Modify the clone to your heart's content
-            respawnPlayer();
-
-
-
-
-
-            // string PlayerLocation = "Assets/prefab/Player.prefab";
-            //ToDo Reinstanciate player.  Google how to instanciate prefabs. 
-            //The player can be foound in prefab folder in unity and already has starting position.
+        { 
+            respawnPlayer(); 
         }
         
          
-          //Wait for first click
+        //Wait for first click to move the player
         if(Input.GetMouseButtonDown(0))
         {
             if (!JumpClick)
@@ -154,29 +126,9 @@ public class GameController : MonoBehaviour
                 Player.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionX;
                 Player.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
             }
-        }
-
-
-       /* if (StartingCameraPos.y - 65 > Player.transform.position.y)
-        {
-            this.JumpClick = false;
-
-            Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
-            Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
-            print("Fell OFF");
-            //Destroy(Player);
-
-            //  Object prefab = AssetDatabase.LoadAssetAtPath("Assets/prefab/Player.prefab", typeof(GameObject));
-            //  Player = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-            // Modify the clone to your heart's content
-
-            //Camera.transform.position= StartingCameraPos;
-            Player.transform.position = new Vector3(-25, 127, -5);
-            Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        }*/
-
-          
+        }   
     }
+
 
     public void checkForEnter()
     {
@@ -187,14 +139,11 @@ public class GameController : MonoBehaviour
                 sceneSwitcher.switchScenes(0);
             }
             
-        }
-
-        StartingCameraPos = Camera.transform.position;
-        //JumpClick = false;
-        //Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionX;
-        //Player.GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;  
+        } 
+        StartingCameraPos = Camera.transform.position; 
     }
 
+    //Has the player clicked/tapped the screen for the first time
     public bool GetJumpClick()
     {
         return this.JumpClick;
