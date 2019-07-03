@@ -26,9 +26,13 @@ public class glider : MonoBehaviour
     private float waitTime = 0.05f;
     /*  */
     private float timer = 0.0f;
+<<<<<<< HEAD
     /*  */
     private float dragWeight;
     /*  */
+=======
+    private float dragWeight;
+>>>>>>> f4aaa9985681a6f56a2bcf2fd5f753c8b8ac24a0
     private bool firstClick;
     /*  */
     CSVParsing CoefData;

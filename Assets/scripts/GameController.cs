@@ -25,6 +25,8 @@ public class GameController : MonoBehaviour
     public GameObject Camera;
     /* The games player (See in unity editor) */
     public GameObject Player;
+    /* Object to hold a booster when upgraded */
+    public GameObject Booster;
     /* Flag that is set when the player is connected to a cloud */
     public bool Connected;
     /* SceneSwitch controlls the switching of menus */
@@ -54,7 +56,13 @@ public class GameController : MonoBehaviour
 
     // Start is called before the first frame update
     void Awake()
+<<<<<<< HEAD
     { 
+=======
+    {
+        Debug.Log("Succsessfully read High score Data ");
+
+>>>>>>> f4aaa9985681a6f56a2bcf2fd5f753c8b8ac24a0
         //Load the highscore and set highscore upon each life
         string tempHiScore =  DataSaver.loadData<string>("HighScore");
         DB.HighScore = float.Parse(tempHiScore);
@@ -352,12 +360,21 @@ public class GameController : MonoBehaviour
     {
         upgradeMenuActions();
     }
+
     public void upgradeMenuActions()
     {
         if (Upgrades.Glider == 1)
         {
             //Load in glider.
             GameObject gldr = Instantiate(Resources.Load("Glider", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject; 
+<<<<<<< HEAD
+=======
+                
+        }
+        if(Upgrades.Booster == 1)
+        {
+            GameObject Booster = Instantiate(Resources.Load("Booster", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+>>>>>>> f4aaa9985681a6f56a2bcf2fd5f753c8b8ac24a0
         }
     }
 }
