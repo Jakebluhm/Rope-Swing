@@ -12,8 +12,9 @@ using UnityEngine.SceneManagement;
 using System.IO;
 
 using Microsoft.VisualBasic;
+using System.Globalization;
 
- 
+
 
 public class GameController : MonoBehaviour
 {
@@ -61,11 +62,21 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+
+        string HighScore = DataSaver.loadData<string>("HighScore");//reads in from csv file
+        Debug.Log(HighScore);
+        DB.HighScore = float.Parse(HighScore, CultureInfo.InvariantCulture.NumberFormat);//converts string to flat
+
+      
+
+        Debug.Log("Succsessfully read High score Data ");
+
         //Load the highscore and set highscore upon each life
         string tempHiScore =  DataSaver.loadData<string>("HighScore");
         DB.HighScore = float.Parse(tempHiScore);
              
         //Initilize instance variables
+
         xOffset = 19.2f;
         yOffset = 67.9f;
         sceneSwitcher = new SceneSwitch();
