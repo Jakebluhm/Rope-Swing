@@ -1,20 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine;
-
+using UnityEngine; 
 using System;
-using UnityEngine.UI;
-
-using UnityEngine.Experimental.UIElements;
-
+using UnityEngine.UI; 
+using UnityEngine.Experimental.UIElements; 
 using UnityEngine.SceneManagement;
-using System.IO;
-
+using System.IO; 
 using Microsoft.VisualBasic;
 using System.Globalization;
-
-
+ 
 
 public class GameController : MonoBehaviour
 {
@@ -52,25 +47,14 @@ public class GameController : MonoBehaviour
     public float distance;
     /* Flag that is set when the player falls off */
     private bool fellOffFlag; 
-
-    string highScoreFilePath = " Data\\HighScore.csv";
-       
+    /* Starting camera position */
     Vector3 StartingCameraPos;
-     
+    /* Holds a flag for the initial click to make the player jump*/
     public bool JumpClick;
 
     // Start is called before the first frame update
     void Awake()
-    {
-
-        string HighScore = DataSaver.loadData<string>("HighScore");//reads in from csv file
-        Debug.Log(HighScore);
-        DB.HighScore = float.Parse(HighScore, CultureInfo.InvariantCulture.NumberFormat);//converts string to flat
-
-      
-
-        Debug.Log("Succsessfully read High score Data ");
-
+    { 
         //Load the highscore and set highscore upon each life
         string tempHiScore =  DataSaver.loadData<string>("HighScore");
         DB.HighScore = float.Parse(tempHiScore);
@@ -289,7 +273,8 @@ public class GameController : MonoBehaviour
     {
         return isConnected;
     }
-    //This function is called in Rope.
+    //This function is called in Rope to see if that instance of rope's
+    //cound (hinge) is the closest.
     public bool IsHingeClosest(int index)
     {
         bool ret = true;
@@ -300,7 +285,7 @@ public class GameController : MonoBehaviour
         Vector2 HingeVector = new Vector2(Hinges[index].transform.position.x, Hinges[index].transform.position.y);
 
         distanceInQuestion = Vector2.Distance(PlayerVector, HingeVector);
-
+        //Look through all hinges
         for (int x = 0; x < Hinges.Count; x++)
         {
             if (x != index)
@@ -317,14 +302,12 @@ public class GameController : MonoBehaviour
                 {
                     ret = false;
                     break;
-                }
-
+                } 
             }
-        }
-
+        } 
         return ret;
     }
-
+    //Corrected hinge position used for error to correct error in unity editor
     Vector3 CorrectedHingePosition(int index)
     {
         return new Vector3(Hinges[index].Hinge.transform.position.x - xOffset, Hinges[index].Hinge.transform.position.y - yOffset,
@@ -333,7 +316,7 @@ public class GameController : MonoBehaviour
     }
 
     
-
+    //Respawns the player and sets the new high score if achieved.
     public void respawnPlayer()
     {
 
@@ -364,18 +347,7 @@ public class GameController : MonoBehaviour
         sceneSwitcher.switchScenes(2);
         //SceneManager.LoadScene(2);
     }
-
-    private void garbageMan()
-    {
-        if (EnemyList.Count > 10)
-        {
-            for (var i = 0; i < EnemyList.Count - 10; i++)
-            {
-                Destroy(EnemyList[i]);
-            }
-        }
-
-    }
+    //When this game scene is loaded run this
     private void OnLevelWasLoaded(int level)
     {
         upgradeMenuActions();
@@ -384,9 +356,9 @@ public class GameController : MonoBehaviour
     {
         if (Upgrades.Glider == 1)
         {
+            //Load in glider.
             GameObject gldr = Instantiate(Resources.Load("Glider", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject; 
-                
-                }
+        }
     }
 }
 

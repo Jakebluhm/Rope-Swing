@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/*
+ * This class is to tell other classes which part of the screen is being clicked.
+ * The goal is to have 4 quadrants of the screen to control different abilities
+ */
 public class InputClass : MonoBehaviour
 {
     private float cameraStartPos;

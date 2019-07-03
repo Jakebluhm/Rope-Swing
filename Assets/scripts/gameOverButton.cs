@@ -49,9 +49,7 @@ public class gameOverButton : MonoBehaviour
             score.alignment = TextAnchor.MiddleCenter;
             score.color = Color.black;
 
-            // Provide Text position and size using RectTransform.
-            score.transform.position = new Vector3(460, 410, -5);
-            score.text = "Score: " + DB.Score;
+
             
             highScore = textGO1.GetComponent<Text>();
             highScore.font = arial;
@@ -59,10 +57,29 @@ public class gameOverButton : MonoBehaviour
             highScore.alignment = TextAnchor.MiddleCenter;
             highScore.color = Color.black;
 
-            // Provide Text position and size using RectTransform.
-            highScore.transform.position = new Vector3(460, 315, -5);
-            highScore.text = "High Score: " + DB.HighScore;
-            
+
+            if ((Application.platform == RuntimePlatform.IPhonePlayer) || SystemInfo.operatingSystem.Contains("Mac"))
+            {
+                // Provide Text position and size using RectTransform.
+                score.transform.position = new Vector3(445, 430, -5);
+                score.text = "Score: " + (int)DB.Score;
+
+                // Provide Text position and size using RectTransform.
+                highScore.transform.position = new Vector3(445, 345, -5);
+                highScore.text = "High Score: " + (int)DB.HighScore;
+                Debug.Log("Running on pc");
+            }
+            else
+            {
+                // Provide Text position and size using RectTransform.
+                score.transform.position = new Vector3(430, 430, -5);
+                score.text = "Score: " + (int)DB.Score;
+
+                // Provide Text position and size using RectTransform.
+                highScore.transform.position = new Vector3(430, 345, -5);
+                highScore.text = "High Score: " + (int)DB.HighScore;
+                Debug.Log("Running on pc");
+            }
 
         }
 

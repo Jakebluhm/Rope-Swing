@@ -4,21 +4,35 @@ using UnityEngine;
 
 public class glider : MonoBehaviour
 { 
+    /* The game controller class */
     public GameController game;
+    /* Player from unity editor */
     public GameObject Player;
+    /*  Glider from unity editor */
     public GameObject Glider;
+    /*  */
     private Vector2 onPressVelocity;
+    /*  */
     private bool TiltDownPressed;
+    /*  */
     private bool TiltUpPressed;
+    /*  */
     private bool GlidePressed;
+    /*  */
     private InputClass gameInput;
+    /*  */
     private float LastMousePosX;
-
+    /*  */
     private float waitTime = 0.05f;
+    /*  */
     private float timer = 0.0f;
-    private float dragWeight  ;
+    /*  */
+    private float dragWeight;
+    /*  */
     private bool firstClick;
+    /*  */
     CSVParsing CoefData;
+
     // Start is called before the first frame update
     void Start()
     { 
@@ -367,67 +381,7 @@ public class glider : MonoBehaviour
                 balenceVertical = VeritcalLift - VerticalDrag - weight;
                 balenceHorizontal = -1f * HorizontalLift - HorizontalDrag;
             }
-        }
-       /* else if (tiltInAngles < 0)
-        {
-            //layer.GetComponent<Rigidbody2D>().AddForce(new Vector2(HorizontalLift - HorizontalDrag
-            //, VeritcalLift + VerticalDrag));
-            Player.GetComponent<Rigidbody2D>().AddForce(new Vector2(HorizontalLift, VeritcalLift));
-            Player.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1f * HorizontalDrag, VerticalDrag));
-
-            balenceVertical = VeritcalLift + VerticalDrag - weight;
-            balenceHorizontal = HorizontalLift - HorizontalDrag;
-        }*/
-        /* if (tiltInAngles > 90) //Tilted Up
-         {
-             //velocityWeight = 1 - (tiltInAngles / 180f);
-             //float newX = xCompVelocity - Mathf.Abs((yCompVelocity * velocityWeight));
-             //float newY = yCompVelocity + Mathf.Abs((velocityWeight * yCompVelocity));
-
-             //newVelocity = new Vector2(newX, newY);
-
-             Debug.Log(velocityWeight);
-         }
-         else if (tiltInAngles < 90)//Tilted Down
-         {
-             //velocityWeight = ((tiltInAngles - 90) / 180f) + 0.5f;
-             //float newX = xCompVelocity + Mathf.Abs((xCompVelocity * velocityWeight));
-             //float newY = yCompVelocity - Mathf.Abs((velocityWeight * xCompVelocity));
-             //newVelocity = new Vector2(newX, newY);
-             Debug.Log(velocityWeight);
-         }
-         else
-         {
-             //velocityWeight = 1 - (tiltInAngles / 180f);
-             //float newX = onPressVelocity.x - Mathf.Abs(velocityWeight * yCompVelocity);
-             //float newY = onPressVelocity.y - velocityWeight * yCompVelocity;
-
-             //newVelocity = new Vector2(newX, newY);
-
-         }
-         //Player.GetComponent<Rigidbody2D>().velocity = newVelocity;
-         */
-
+        } 
     }
  
-    void setOnPressVelocity(int tilt) //tilt up - 1      tilt down - 0    glide - 2
-    {
-        /*if(tilt == 2 && !GlidePressed)
-        {
-            Player.transform.eulerAngles = Player.transform.eulerAngles + new Vector3(0, 0, tilt);
-            Glider.transform.eulerAngles = Glider.transform.eulerAngles + new Vector3(0, 0, tilt);
-
-        }*/
-        if (!TiltDownPressed && !TiltUpPressed && !GlidePressed)
-        {
-            onPressVelocity = Player.GetComponent<Rigidbody2D>().velocity;
-        }
-       
-    }
-    private float getLiftCoefficent(int tilt)
-    {
-        float ret = -3f;
-
-        return ret;
-    }
 }
