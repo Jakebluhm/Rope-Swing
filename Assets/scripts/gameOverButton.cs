@@ -91,12 +91,12 @@ public class gameOverButton : MonoBehaviour
 
 
     }
-
+    //Load main menu button
     public void mainMenuPlay()  //main menu play button causes this method to run
     {
         SceneManager.LoadScene(0);
     }
-    
+    //Load Game over menu
     public void gameOverMainMenu()
     {
         SceneManager.LoadScene(3);
