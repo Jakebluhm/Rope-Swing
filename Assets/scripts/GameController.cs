@@ -126,8 +126,7 @@ public class GameController : MonoBehaviour
             if(sceneSwitcher.getSceneIndex() == 2)
             {
                 sceneSwitcher.switchScenes(0);
-            }
-            
+            } 
         } 
         StartingCameraPos = Camera.transform.position; 
     }
@@ -177,7 +176,7 @@ public class GameController : MonoBehaviour
         }
 
     }
-
+    //Set new distance highscore
     public void setDistance(float d)
     {
         if(d > distance)
@@ -185,22 +184,23 @@ public class GameController : MonoBehaviour
             distance = d;
         }
     }
-
+    //calculate overall score
     public float calculateScore()
     {
         return (float)connectionCount + topSpeed/10 + highestHeight + distance/100;
     }
-
+    //Has the person fallen off
     public bool getfellOffFlag()   
     {
         return fellOffFlag;
     }
-
+    //set if the person has fell off
     public void setfellOffFlag(bool flag)
     {
         fellOffFlag = flag;
     }
 
+    //InitScore sets up the on screen score
     public void initScore()
     {
         Font arial;
@@ -237,49 +237,48 @@ public class GameController : MonoBehaviour
         //On Screen score for iphone
         //score.transform.position = new Vector3(1350, 820, -5);
     }
-
+    // Constantly updates the score on screen
     public void updateScore()
     {
         score.text = "score: " + (int)scoreCount;
         //Debug.Log(score.text + scoreCount)
     }
 
-    //Returns index
+    //adds pickup item to list and returns index
     public int AddItem(PickUpItem I)
     {
         Items.Add(I);
 
         return Hinges.Count - 1;
     }
-
+    //adds enemy item to list and returns index
     public int AddEnemy(Enemies E)
     {
         EnemyList.Add(E);
-
         return Hinges.Count - 1;
     }
-
+    //Sets connected flag and sets the index of the cloud that is connected
     public void setIsConnected(Rope rope)
     {
         Connected = true;
         this.isConnected = Hinges.IndexOf(rope);
     }
-
+    //Sets connected flag
     public void SetConnectedFlag(bool s)
     {
         this.Connected = s;
     }
-
+    //gets connected index
     public bool GetConnectedFlag()
     {
         return this.Connected;
     }
-
+    //gets connected flag
     public int getConnected()
     {
         return isConnected;
     }
-
+    //This function is called in Rope.
     public bool IsHingeClosest(int index)
     {
         bool ret = true;
