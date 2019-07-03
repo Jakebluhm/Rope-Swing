@@ -63,6 +63,7 @@ public class cameraControl : MonoBehaviour
         bottomCamPos = Cam.transform.position.y;
         delayTime = 0.000001f;
         BackgroundStartPos = 277f;
+        
     }
 
     // Update is called once per frame

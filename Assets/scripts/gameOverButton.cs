@@ -85,7 +85,8 @@ public class gameOverButton : MonoBehaviour
     {
         DB.LvlIndex = 0;
 
-        Upgrades.Glider = 1;
+        Upgrades.Glider = 1;//sets flag for glider
+        Upgrades.Booster = 1;//sets flag for booster
         SceneManager.LoadScene(0);
 
 

@@ -16,7 +16,7 @@ public class glider : MonoBehaviour
 
     private float waitTime = 0.05f;
     private float timer = 0.0f;
-    private float dragWeight  ;
+    private float dragWeight;
     private bool firstClick;
     CSVParsing CoefData;
     // Start is called before the first frame update
